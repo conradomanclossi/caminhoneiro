@@ -1,0 +1,1 @@
+["build_web_compilers:ddc on lib/main.ddc.module",["Error compiling dartdevc module:web_app|lib/main.ddc.js\n\npackages/web_app/main.dart:5:19: Error: Expected ';' after this.\nString app_name = 'Caminhoneiro'\n                  ^^^^^^^^^^^^^^\n","",""]]
