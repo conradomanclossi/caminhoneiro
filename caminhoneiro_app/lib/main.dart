@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:caminhoneiro_app/status.dart';
 import 'package:caminhoneiro_app/pages/home.dart';
 import 'package:caminhoneiro_app/pages/faturamento.dart';
 import 'package:caminhoneiro_app/pages/custos.dart';
@@ -27,11 +28,11 @@ class MyStateFulWidget extends StatefulWidget {
 }
 
 class _MyStateFulWidgetState extends State<MyStateFulWidget> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
 
   /// Conteudo das paginas
   static const TextStyle optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[
     /// Link page Home
     HomeApp(),
@@ -45,30 +46,46 @@ class _MyStateFulWidgetState extends State<MyStateFulWidget> {
       _selectedIndex = index;
     });
   }
+
   /// Navegação
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Caminhoneiro'),
-        backgroundColor: Colors.lightGreen,
-      ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Total")),
-          BottomNavigationBarItem(icon: Icon(Icons.monetization_on), title: Text("Faturamento")),
-          BottomNavigationBarItem(icon: Icon(Icons.money_off), title: Text("Custos")),
-          BottomNavigationBarItem(icon: Icon(Icons.person), title: Text("Pessoal")),
+      body: Stack(
+        children: <Widget>[
+          /// Bottom Menu
+          Container(
+            child: Scaffold(
+              appBar: AppBar(
+                backgroundColor: Colors.lightGreen,
+              ),
+              body: Center(
+                child: _widgetOptions.elementAt(_selectedIndex),
+              ),
+              bottomNavigationBar: BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                items: <BottomNavigationBarItem>[
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.home), title: Text("Total")),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.monetization_on),
+                      title: Text("Faturamento")),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.money_off), title: Text("Custos")),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.person), title: Text("Pessoal"))
+                ],
+                currentIndex: _selectedIndex,
+                selectedItemColor: Colors.lightGreen,
+                onTap: _onItemTapped,
+              ),
+            ),
+          ),
+
+          /// Top Status Bar
+          StatusBar(),
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
       ),
     );
   }
 }
-
