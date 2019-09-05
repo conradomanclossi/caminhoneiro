@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:caminhoneiro_app/pages/home.dart';
+import 'package:caminhoneiro_app/pages/faturamento.dart';
+import 'package:caminhoneiro_app/pages/custos.dart';
+import 'package:caminhoneiro_app/pages/pessoal.dart';
 
 void main() => runApp(MyApp());
 
@@ -32,18 +35,9 @@ class _MyStateFulWidgetState extends State<MyStateFulWidget> {
   static List<Widget> _widgetOptions = <Widget>[
     /// Link page Home
     HomeApp(),
-    Text(
-      'Index 1: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Home',
-      style: optionStyle,
-    ),
+    Faturamento(),
+    Custos(),
+    Pessoal()
   ];
 
   void _onItemTapped(int index) {
@@ -65,10 +59,10 @@ class _MyStateFulWidgetState extends State<MyStateFulWidget> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home2")),
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home3")),
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home3")),
+          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Total")),
+          BottomNavigationBarItem(icon: Icon(Icons.monetization_on), title: Text("Faturamento")),
+          BottomNavigationBarItem(icon: Icon(Icons.money_off), title: Text("Custos")),
+          BottomNavigationBarItem(icon: Icon(Icons.person), title: Text("Pessoal")),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
