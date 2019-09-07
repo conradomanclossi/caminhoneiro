@@ -8,7 +8,6 @@ class HomeApp extends StatefulWidget {
 class _HomeAppState extends State<HomeApp> {
   @override
   Widget build(BuildContext context) {
-    return Text("It's Home");
+    return Text("It'' Home");
   }
 }
-
