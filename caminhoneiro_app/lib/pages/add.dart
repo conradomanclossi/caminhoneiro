@@ -15,7 +15,7 @@ showAdd(BuildContext context) {
                     flex: 1,
                     child: GestureDetector(
                         onTap: () {
-                          print("It's Worked!");
+                          print("Adicionar Faturamento");
                         },
                         child: Container(
                             color: Colors.lightGreen,
@@ -33,7 +33,7 @@ showAdd(BuildContext context) {
                     flex: 1,
                     child: GestureDetector(
                         onTap: () {
-                          print("It's Worked two!");
+                          print("Adicionar Custo");
                         },
                         child: Container(
                           color: Colors.red,
@@ -51,7 +51,7 @@ showAdd(BuildContext context) {
                     flex: 1,
                     child: GestureDetector(
                         onTap: () {
-                          print("It's Worked three!");
+                          print("Adicionar Despesa Pessoal");
                         },
                         child: Container(
                           color: Colors.orange,
@@ -77,3 +77,4 @@ showAdd(BuildContext context) {
     },
   );
 }
+
