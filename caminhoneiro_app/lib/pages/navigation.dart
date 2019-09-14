@@ -1,0 +1,99 @@
+import 'package:flutter/material.dart';
+import 'package:caminhoneiro_app/pages/status.dart';
+import 'package:caminhoneiro_app/pages/home.dart';
+import 'package:caminhoneiro_app/pages/faturamento.dart';
+import 'package:caminhoneiro_app/pages/custos.dart';
+import 'package:caminhoneiro_app/pages/pessoal.dart';
+import 'package:caminhoneiro_app/pages/add.dart';
+
+
+
+/// Dependecies
+class AppNavigation extends StatefulWidget {
+  AppNavigation({Key key}) : super(key: key);
+
+  @override
+  _AppNavigationState createState() => _AppNavigationState();
+}
+
+class _AppNavigationState extends State<AppNavigation> {
+  int _selectedIndex = 0;
+
+  /// Conteudo das paginas
+  static const TextStyle optionStyle =
+  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static List<Widget> _widgetOptions = <Widget>[
+    /// Link page Home
+    HomeApp(),
+    /// Link page Faturamento
+    Faturamento(),
+    /// Link page Custos
+    Custos(),
+    /// Link page Pessoal
+    Pessoal()
+  ];
+
+  /// Index Selector
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  /// Navegação
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: <Widget>[
+
+          /// Bottom Menu
+          Container(
+            child: Scaffold(
+              appBar: AppBar(
+                backgroundColor: Colors.lightGreen,
+              ),
+              body: Center(
+                child: _widgetOptions.elementAt(_selectedIndex),
+              ),
+
+              /// Bottom Navigation
+              bottomNavigationBar: BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                items: <BottomNavigationBarItem>[
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.home), title: Text("Total")),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.monetization_on),
+                      title: Text("Faturamento")),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.money_off), title: Text("Custos")),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.person), title: Text("Pessoal"))
+                ],
+                currentIndex: _selectedIndex,
+                selectedItemColor: Colors.lightGreen,
+                onTap: _onItemTapped,
+              ),
+
+              /// Floating Button
+              floatingActionButton: FloatingActionButton(
+                /// Add Popup
+                onPressed: () {
+                  showAdd(context);
+                },
+                backgroundColor: Colors.lightGreen,
+                child: Icon(Icons.add),
+              ),
+              floatingActionButtonLocation:
+              FloatingActionButtonLocation.endFloat,
+            ),
+          ),
+
+          /// Top Status Bar
+          StatusBar(),
+        ],
+      ),
+    );
+  }
+}
