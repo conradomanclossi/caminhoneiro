@@ -4,11 +4,16 @@ import 'package:path/path.dart';
 
 /// Colunas Padrão:
 final String idColumn = 'idColumn';
+final String tituloColumn = 'tituloColumn';
 
 /// Tabela Viagem:
 final String viagemTable = 'viagemTable';
 final String saidaColumn = 'saidaColumn';
 final String chegadaColumn = 'chegadaColumn';
+
+/// Tabelas Categorias:
+final String categoriaTable = 'categoriaTable';
+final String tipoCategoriaColumn = 'tipoCategoriaColumn';
 
 /// Database
 class DatabaseHelper {
@@ -34,14 +39,24 @@ class DatabaseHelper {
     final path = join(databasesPath, 'database.db');
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newerVersion) async {
+
+      /// Table Viagem
       await db.execute("""
       CREATE TABLE $viagemTable(
       $idColumn INTEGER PRIMARY KEY, 
       $saidaColumn TEXT, 
       $chegadaColumn TEXT);""");
+
+      /// Table Categoria
+      await db.execute("""
+      CREATE TABLE $categoriaTable(
+      $idColumn INTEGER PRIMARY KEY,
+      $tipoCategoriaColumn TEXT, 
+      $tituloColumn TEXT);""");
     });
   }
 
+  /// Viagem
   /// Salva uma viagem
   Future<Viagem> saveViagem(Viagem viagem) async {
     Database dbViagem = await db;
@@ -89,10 +104,61 @@ class DatabaseHelper {
   }
 
   /// Conta a quantidade de viagens
-  getNumber() async {
+  getNumberViagem() async {
     Database dbViagem = await db;
     return Sqflite.firstIntValue(
         await dbViagem.rawQuery('SELECT COUNT(*) FROM $viagemTable'));
+  }
+
+  /// Categorias
+  /// Salva uma categoria
+  Future<Categoria> saveCategoria(Categoria categoria) async {
+    Database dbCategoria = await db;
+    categoria.id =
+        await dbCategoria.insert(categoriaTable, categoria.toMap());
+    return categoria;
+  }
+
+  /// Pega uma categoria
+  Future<Categoria> getCategoria(int id) async {
+    Database dbCategoria = await db;
+    List<Map> maps = await dbCategoria.query(categoriaTable,
+        columns: [idColumn, tipoCategoriaColumn, tituloColumn],
+        where: '$idColumn = ?',
+        whereArgs: [id]);
+    if (maps.length > 0) {
+      return Categoria.fromMap(maps.first);
+    } else {
+      return null;
+    }
+  }
+
+  /// Deleta uma categoria faturamento
+  Future<int> deleteCategoria(int id) async {
+    Database dbCategoria = await db;
+    return await dbCategoria
+        .delete(categoriaTable, where: '$idColumn = ?', whereArgs: [id]);
+  }
+  /// Atualiza uma categoria
+  Future<int> updateCategoria(Categoria categoria) async {
+    Database dbCategoria = await db;
+    return await dbCategoria.update(categoriaTable, categoria.toMap(),
+    where: '$idColumn = ?', whereArgs: [categoria.id]);
+  }
+  /// Pega todas as categorias
+  getAllCategorias() async {
+    Database dbCategoria = await db;
+    List listMap = await dbCategoria.rawQuery('SELECT * FROM $categoriaTable');
+    List<Categoria> listCategoria = List();
+    for (Map m in listMap) {
+      listCategoria.add(Categoria.fromMap(m));
+    }
+    return listCategoria;
+  }
+  /// Conta a quantidade de categorias
+  getNumberCategorias() async {
+    Database dbCategoria = await db;
+    return Sqflite.firstIntValue(await dbCategoria.rawQuery('SELECT COUNT(*) FROM $categoriaTable'));
   }
 
   /// Fecha o banco de dados
@@ -130,5 +196,35 @@ class Viagem {
   @override
   String toString() {
     return "Viagem(id: $id, saida: $saida, chegada: $chegada)";
+  }
+}
+
+/// Modelando uma Categoria
+class Categoria {
+  int id;
+  String tipo;
+  String titulo;
+
+  Categoria();
+
+  // Construtor em Map
+  Categoria.fromMap(Map map) {
+    id = map[idColumn];
+    tipo = map[tipoCategoriaColumn];
+    titulo = map[tituloColumn];
+  }
+
+  // Respondendo um map
+  Map toMap() {
+    Map<String, dynamic> map = {tipoCategoriaColumn: tipo, tituloColumn: titulo};
+    if (id != null) {
+      map[idColumn] = id;
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return "Categoria Faturamento(id: $id, tipo: $tipo, título: $titulo)";
   }
 }

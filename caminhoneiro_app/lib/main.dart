@@ -19,16 +19,28 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-
+    /// Salvando uma viagem
     /*Viagem v = Viagem();
     v.saida = '2019-09-10';
     v.chegada = '2019-09-10';
 
     helper.saveViagem(v);*/
 
-    helper.getAllViagens().then((list){
+    /// Salvando uma categoria
+    /*Categoria c = Categoria();
+    c.tipo = 'faturamento';
+    c.titulo = 'frete';
+
+    helper.saveCategoria(c);*/
+
+
+  /*  helper.getAllCategorias().then((list){
       print(list);
-    });
+    });*/
+
+    /*helper.getAllViagens().then((list){
+      print(list);
+    });*/
   }
 
   @override
