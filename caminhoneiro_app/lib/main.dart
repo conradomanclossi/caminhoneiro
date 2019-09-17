@@ -34,13 +34,13 @@ class _MyAppState extends State<MyApp> {
     helper.saveCategoria(c);*/
 
 
-  /*  helper.getAllCategorias().then((list){
+    helper.getAllCategorias().then((list){
       print(list);
-    });*/
+    });
 
-    /*helper.getAllViagens().then((list){
+    helper.getAllViagens().then((list){
       print(list);
-    });*/
+    });
   }
 
   @override

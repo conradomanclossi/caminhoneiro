@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b4165947-05e7-4289-8fdf-e5de47bddbe6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/ios/Flutter/App.framework/flutter_assets/kernel_blob.bin" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/App.framework/flutter_assets/kernel_blob.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/sqlite/suport_database.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/sqlite/database.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sqlite/database.dart" afterDir="false" />
     </list>
@@ -27,8 +27,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/lib/main.dart">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="383">
-                  <caret line="38" column="9" selection-start-line="36" selection-start-column="2" selection-end-line="38" selection-end-column="9" />
+                <state relative-caret-position="157">
+                  <caret line="42" column="7" selection-start-line="40" selection-start-column="4" selection-end-line="42" selection-end-column="7" />
                   <folding>
                     <element signature="e#0#39#0" expanded="true" />
                   </folding>
@@ -37,10 +37,19 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/lib/sqlite/suport_database.dart">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="562">
+                  <caret line="73" column="1" selection-start-line="73" selection-start-column="1" selection-end-line="73" selection-end-column="1" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/lib/sqlite/database.dart">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2394">
-                  <caret line="202" column="12" selection-start-line="202" selection-start-column="6" selection-end-line="202" selection-end-column="15" />
+                <state relative-caret-position="1884">
+                  <caret line="156" column="1" selection-start-line="156" selection-start-column="1" selection-end-line="156" selection-end-column="1" />
                   <folding>
                     <element signature="e#0#38#0" expanded="true" />
                   </folding>
@@ -94,8 +103,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/lib/sqlite/database.dart">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="472">
-                  <caret line="227" column="54" selection-start-line="227" selection-start-column="54" selection-end-line="227" selection-end-column="54" />
+                <state relative-caret-position="502">
+                  <caret line="156" column="1" selection-start-line="156" selection-start-column="1" selection-end-line="156" selection-end-column="1" />
                   <folding>
                     <element signature="e#0#38#0" expanded="true" />
                   </folding>
@@ -139,6 +148,7 @@
         <option value="$PROJECT_DIR$/lib/pages/home_page.dart" />
         <option value="$PROJECT_DIR$/lib/pages/navigation.dart" />
         <option value="$PROJECT_DIR$/lib/sqlite/database.dart" />
+        <option value="$PROJECT_DIR$/lib/sqlite/suport_database.dart" />
         <option value="$PROJECT_DIR$/lib/main.dart" />
       </list>
     </option>
@@ -230,7 +240,7 @@
     <frame x="1440" y="0" width="1600" height="900" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.14806867" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14762516" />
       <window_info id="Captures" order="1" side_tool="true" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
@@ -240,7 +250,7 @@
       <window_info id="Capture Tool" order="7" />
       <window_info id="Favorites" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Dart Analysis" order="0" weight="0.22860125" />
-      <window_info active="true" anchor="bottom" id="Run" order="1" visible="true" weight="0.23638614" />
+      <window_info anchor="bottom" id="Run" order="1" visible="true" weight="0.23638614" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Android Profiler" order="3" show_stripe_button="false" />
       <window_info anchor="bottom" id="Logcat" order="4" />
@@ -374,18 +384,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/sqlite/database.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2394">
-          <caret line="202" column="12" selection-start-line="202" selection-start-column="6" selection-end-line="202" selection-end-column="15" />
+        <state relative-caret-position="1884">
+          <caret line="156" column="1" selection-start-line="156" selection-start-column="1" selection-end-line="156" selection-end-column="1" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/sqlite/suport_database.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="562">
+          <caret line="73" column="1" selection-start-line="73" selection-start-column="1" selection-end-line="73" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="38" column="9" selection-start-line="36" selection-start-column="2" selection-end-line="38" selection-end-column="9" />
+        <state relative-caret-position="157">
+          <caret line="42" column="7" selection-start-line="40" selection-start-column="4" selection-end-line="42" selection-end-column="7" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
