@@ -1,11 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:caminhoneiro_app/pages/navigator.dart';
+import 'sqlite/database.dart';
+
 
 void main() => runApp(MyApp());
 
 String name_app = "Caminhoneiro";
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  DatabaseHelper helper = DatabaseHelper();
+
+  @override
+  void initState() {
+    super.initState();
+
+    /*Viagem v = Viagem();
+    v.saida = '2019-09-10';
+    v.chegada = '2019-09-10';
+
+    helper.saveViagem(v);*/
+
+    helper.getAllViagens().then((list){
+      print(list);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+
+
+
+/*class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,6 +48,6 @@ class MyApp extends StatelessWidget {
       home: AppNavigator(),
     );
   }
-}
+}*/
 
 
