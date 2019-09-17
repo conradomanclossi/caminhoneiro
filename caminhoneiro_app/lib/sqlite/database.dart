@@ -27,13 +27,12 @@ class DatabaseHelper {
     final path = join(databasesPath, 'database.db');
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newerVersion) async {
-
       /// Table Viagem
       await db.execute("""
       CREATE TABLE $viagemTable(
       $idColumn INTEGER PRIMARY KEY, 
-      $saidaColumn TEXT, 
-      $chegadaColumn TEXT);""");
+      $saidaColumn DATE, 
+      $chegadaColumn DATE);""");
 
       /// Table Categoria
       await db.execute("""
@@ -41,6 +40,17 @@ class DatabaseHelper {
       $idColumn INTEGER PRIMARY KEY,
       $tipoCategoriaColumn TEXT, 
       $tituloColumn TEXT);""");
+
+      /// Table Registro
+      await db.execute("""
+      CREATE TABLE $registroTable(
+      $idColumn INTEGER PRIMARY KEY,
+      $viagemColumn INTEGER,
+      $categoriaColumn INTEGER,
+      $dateColumn DATE,
+      $tituloColumn TEXT,
+      $valorColumn FLOAT
+      );""");
     });
   }
 
@@ -102,8 +112,7 @@ class DatabaseHelper {
   /// Salva uma categoria
   Future<Categoria> saveCategoria(Categoria categoria) async {
     Database dbCategoria = await db;
-    categoria.id =
-        await dbCategoria.insert(categoriaTable, categoria.toMap());
+    categoria.id = await dbCategoria.insert(categoriaTable, categoria.toMap());
     return categoria;
   }
 
@@ -127,12 +136,14 @@ class DatabaseHelper {
     return await dbCategoria
         .delete(categoriaTable, where: '$idColumn = ?', whereArgs: [id]);
   }
+
   /// Atualiza uma categoria
   Future<int> updateCategoria(Categoria categoria) async {
     Database dbCategoria = await db;
     return await dbCategoria.update(categoriaTable, categoria.toMap(),
-    where: '$idColumn = ?', whereArgs: [categoria.id]);
+        where: '$idColumn = ?', whereArgs: [categoria.id]);
   }
+
   /// Pega todas as categorias
   getAllCategorias() async {
     Database dbCategoria = await db;
@@ -143,10 +154,72 @@ class DatabaseHelper {
     }
     return listCategoria;
   }
+
   /// Conta a quantidade de categorias
   getNumberCategorias() async {
     Database dbCategoria = await db;
-    return Sqflite.firstIntValue(await dbCategoria.rawQuery('SELECT COUNT(*) FROM $categoriaTable'));
+    return Sqflite.firstIntValue(
+        await dbCategoria.rawQuery('SELECT COUNT(*) FROM $categoriaTable'));
+  }
+
+  /// Registro
+  /// Salva um registro
+  Future<Registro> saveRegistro(Registro registro) async {
+    Database dbRegistro = await db;
+    registro.id = await dbRegistro.insert(registroTable, registro.toMap());
+    return registro;
+  }
+
+  /// Pega um registro
+  Future<Registro> getRegistro(int id) async {
+    Database dbRegistro = await db;
+    List<Map> maps = await dbRegistro.query(registroTable,
+        columns: [
+          idColumn,
+          viagemColumn,
+          categoriaColumn,
+          dateColumn,
+          tituloColumn,
+          valorColumn
+        ],
+        where: '$idColumn = ?',
+        whereArgs: [id]);
+    if (maps.length > 0) {
+      return Registro.fromMap(maps.first);
+    } else {
+      return null;
+    }
+  }
+
+  /// Detela um registro
+  Future<int> deleteRegistro(int id) async {
+    Database dbRegistro = await db;
+    return await dbRegistro
+        .delete(registroTable, where: '$idColumn = ?', whereArgs: [id]);
+  }
+
+  /// Atualiza um registro
+  Future<int> updateRegistro(Registro registro) async {
+    Database dbRegistro = await db;
+    return await dbRegistro.update(registroTable, registro.toMap(),
+    where: '$idColumn = ?', whereArgs: [registro.id]);
+  }
+
+  /// Pega todos os registros
+  getAllRegistros() async {
+    Database dbRegistro = await db;
+    List listMap = await dbRegistro.rawQuery('SELECT * FROM $registroTable');
+    List<Registro> listRegistro = List();
+    for (Map m in listMap) {
+      listRegistro.add(Registro.fromMap(m));
+    }
+    return listRegistro;
+  }
+
+  /// Conta a quantidade de registros
+  getNumberRegistro() async {
+    Database dbRegistro = await db;
+    return Sqflite.firstIntValue(await dbRegistro.rawQuery('SELECT COUNT(*) FROM $registroTable'));
   }
 
   /// Fecha o banco de dados

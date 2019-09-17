@@ -11,6 +11,13 @@ final String chegadaColumn = 'chegadaColumn';
 final String categoriaTable = 'categoriaTable';
 final String tipoCategoriaColumn = 'tipoCategoriaColumn';
 
+/// Tabelas Registros
+final String registroTable = 'registroTable';
+final String viagemColumn = 'viagemColumn';
+final String categoriaColumn = 'categoriaColumn';
+final String dateColumn = 'dateColumn';
+final String valorColumn = 'valorColumn';
+
 /// Modelos
 /// Modelando uma viagem
 class Viagem {
@@ -71,4 +78,47 @@ class Categoria {
   String toString() {
     return "Categoria Faturamento(id: $id, tipo: $tipo, título: $titulo)";
   }
+}
+
+/// Modelando um registro
+class Registro {
+  int id;
+  int viagemId;
+  int categoriaId;
+  String date;
+  String titulo;
+  double valor;
+
+  Registro();
+
+  // Construtor em Map
+  Registro.fromMap(Map map) {
+    id = map[idColumn];
+    viagemId = map[viagemColumn];
+    categoriaId = map[categoriaColumn];
+    date = map[dateColumn];
+    titulo = map[tituloColumn];
+    valor = map[valorColumn];
+  }
+
+  // Respondendo um map
+  Map toMap() {
+    Map<String, dynamic> map = {
+      viagemColumn: viagemId,
+      categoriaColumn: categoriaId,
+      dateColumn: date,
+      tituloColumn: titulo,
+      valorColumn: valor
+    };
+    if (id != null) {
+      map[idColumn] = id;
+    }
+    return map;
+  }
+  // Devolvendo uma string
+  @override
+  String toString() {
+    return "Registro(id: $id, viagem: $viagemId, categoria: $categoriaId, data: $date, titulo: $titulo, valor: $valor)";
+  }
+
 }
