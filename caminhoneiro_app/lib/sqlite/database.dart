@@ -39,7 +39,8 @@ class DatabaseHelper {
       CREATE TABLE $categoriaTable(
       $idColumn INTEGER PRIMARY KEY,
       $tipoCategoriaColumn TEXT, 
-      $tituloColumn TEXT);""");
+      $tituloColumn TEXT
+      $comissaoColumn FLOAT);""");
 
       /// Table Registro
       await db.execute("""
@@ -49,7 +50,9 @@ class DatabaseHelper {
       $categoriaColumn INTEGER,
       $dateColumn DATE,
       $tituloColumn TEXT,
-      $valorColumn FLOAT
+      $valorColumn FLOAT,
+      FOREIGN KEY ($viagemColumn) REFERENCES $viagemTable($idColumn),
+      FOREIGN KEY ($categoriaColumn) REFERENCES $categoriaTable($idColumn)
       );""");
     });
   }
@@ -120,7 +123,7 @@ class DatabaseHelper {
   Future<Categoria> getCategoria(int id) async {
     Database dbCategoria = await db;
     List<Map> maps = await dbCategoria.query(categoriaTable,
-        columns: [idColumn, tipoCategoriaColumn, tituloColumn],
+        columns: [idColumn, tipoCategoriaColumn, tituloColumn, comissaoColumn],
         where: '$idColumn = ?',
         whereArgs: [id]);
     if (maps.length > 0) {

@@ -10,6 +10,7 @@ final String chegadaColumn = 'chegadaColumn';
 /// Tabelas Categorias:
 final String categoriaTable = 'categoriaTable';
 final String tipoCategoriaColumn = 'tipoCategoriaColumn';
+final String comissaoColumn = 'comissaoColumn';
 
 /// Tabelas Registros
 final String registroTable = 'registroTable';
@@ -55,6 +56,7 @@ class Categoria {
   int id;
   String tipo;
   String titulo;
+  double comissao;
 
   Categoria();
 
@@ -63,11 +65,12 @@ class Categoria {
     id = map[idColumn];
     tipo = map[tipoCategoriaColumn];
     titulo = map[tituloColumn];
+    comissao = map[comissaoColumn];
   }
 
   // Respondendo um map
   Map toMap() {
-    Map<String, dynamic> map = {tipoCategoriaColumn: tipo, tituloColumn: titulo};
+    Map<String, dynamic> map = {tipoCategoriaColumn: tipo, tituloColumn: titulo, comissaoColumn: comissao};
     if (id != null) {
       map[idColumn] = id;
     }
@@ -76,7 +79,7 @@ class Categoria {
 
   @override
   String toString() {
-    return "Categoria Faturamento(id: $id, tipo: $tipo, título: $titulo)";
+    return "Categoria Faturamento(id: $id, tipo: $tipo, título: $titulo, comissão: $comissao)";
   }
 }
 
