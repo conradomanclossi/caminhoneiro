@@ -1,8 +1,6 @@
 import 'package:caminhoneiro_app/sqlite/database.dart';
 import 'package:caminhoneiro_app/sqlite/suport_database.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:sqflite/sqflite.dart';
 
 class HomeApp extends StatefulWidget {
   @override
@@ -45,11 +43,7 @@ class _HomeAppState extends State<HomeApp> {
 
   Widget _faturamentoCard(BuildContext context, int index) {
     return GestureDetector(
-      onTap: () async {
-        print(await helper.getCategoria(registros[index].id).then((list) {
-          return list.titulo;
-        }));
-      },
+      onTap: () {},
       child: Container(
         height: 70.0,
         margin: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
@@ -83,55 +77,63 @@ class _HomeAppState extends State<HomeApp> {
             ),
             Padding(
               padding: EdgeInsets.only(left: 10.0),
-              child: Text.rich(
-                TextSpan(
-                  text: 'Categoria',
-                  style: TextStyle(
-                      color: Colors.white70,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 10.0), // default text style
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: '\n${registros[index].titulo}',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 25.0)),
-                  ],
+              child: FutureBuilder(
+                future: helper.getCategoria(registros[index].id).then(
+                  (list) {
+                    return list.titulo;
+                  },
                 ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                  padding: EdgeInsets.only(left: 80.0),
-                  child: Text.rich(
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData)
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  return Text.rich(
                     TextSpan(
-                      text: 'R\$',
+                      text: snapshot.data,
                       style: TextStyle(
-                          color: Colors.white70,
+                          color: Colors.black45,
                           fontWeight: FontWeight.bold,
                           fontSize: 10.0), // default text style
                       children: <TextSpan>[
                         TextSpan(
-                            text: registros[index].valor.toString(),
+                            text: '\n${registros[index].titulo}',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 25.0)),
                       ],
                     ),
-                  )),
+                  );
+                },
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: EdgeInsets.only(left: 80.0),
+                child: Text.rich(
+                  TextSpan(
+                    text: 'R\$',
+                    style: TextStyle(
+                        color: Colors.white70,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10.0), // default text style
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: registros[index].valor.toString(),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25.0)),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ],
         ),
       ),
     );
-  }
-
-  Future<Categoria> _showCategoria(_id) async {
-    helper.getCategoria(_id).then((list) {
-      return list.titulo;
-    });
   }
 }

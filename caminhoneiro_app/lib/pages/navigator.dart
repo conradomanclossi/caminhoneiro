@@ -5,6 +5,7 @@ import 'package:caminhoneiro_app/pages/faturamento.dart';
 import 'package:caminhoneiro_app/pages/custos.dart';
 import 'package:caminhoneiro_app/pages/pessoal.dart';
 import 'package:caminhoneiro_app/pages/add.dart';
+import 'package:caminhoneiro_app/pages/registro_page.dart';
 
 
 /// Dependecies
@@ -79,7 +80,8 @@ class _AppNavigatorState extends State<AppNavigator> {
               floatingActionButton: FloatingActionButton(
                 /// Add Popup
                 onPressed: () {
-                  showAdd(context);
+                  AddRegistro();
+                  /*showAdd(context);*/
                 },
                 backgroundColor: Colors.lightGreen,
                 child: Icon(Icons.add),
