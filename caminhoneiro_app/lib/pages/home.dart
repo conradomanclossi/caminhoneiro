@@ -17,12 +17,6 @@ class _HomeAppState extends State<HomeApp> {
   void initState() {
     super.initState();
 
-    helper.getAllCategorias().then((list) {
-      setState(() {
-        categorias = list;
-      });
-    });
-
     helper.getAllRegistros().then((list) {
       setState(() {
         registros = list;
