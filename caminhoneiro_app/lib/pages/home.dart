@@ -1,3 +1,4 @@
+import 'package:caminhoneiro_app/pages/registro_page.dart';
 import 'package:caminhoneiro_app/sqlite/database.dart';
 import 'package:caminhoneiro_app/sqlite/suport_database.dart';
 import 'package:flutter/material.dart';
@@ -17,11 +18,7 @@ class _HomeAppState extends State<HomeApp> {
   void initState() {
     super.initState();
 
-    helper.getAllRegistros().then((list) {
-      setState(() {
-        registros = list;
-      });
-    });
+    _getAllRegistros();
   }
 
   @override
@@ -37,7 +34,9 @@ class _HomeAppState extends State<HomeApp> {
 
   Widget _faturamentoCard(BuildContext context, int index) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        _showRegistroPage(registro: registros[index]);
+      },
       child: Container(
         height: 70.0,
         margin: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
@@ -72,7 +71,7 @@ class _HomeAppState extends State<HomeApp> {
             Padding(
               padding: EdgeInsets.only(left: 10.0),
               child: FutureBuilder(
-                future: helper.getCategoria(registros[index].id).then(
+                future: helper.getCategoria(registros[index].categoriaId).then(
                   (list) {
                     return list.titulo;
                   },
@@ -129,5 +128,30 @@ class _HomeAppState extends State<HomeApp> {
         ),
       ),
     );
+  }
+
+  void _showRegistroPage({Registro registro}) async {
+    final recRegistro = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => AddRegistro(
+                  registro: registro,
+                )));
+    if (recRegistro != null) {
+      if (registro != null) {
+        await helper.updateRegistro(recRegistro);
+      } else {
+        await helper.saveRegistro(recRegistro);
+      }
+      _getAllRegistros();
+    }
+  }
+
+  void _getAllRegistros() {
+    helper.getAllRegistros().then((list) {
+      setState(() {
+        registros = list;
+      });
+    });
   }
 }

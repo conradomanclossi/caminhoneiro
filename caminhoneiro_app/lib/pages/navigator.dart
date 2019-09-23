@@ -1,12 +1,11 @@
+import 'package:caminhoneiro_app/sqlite/suport_database.dart';
 import 'package:flutter/material.dart';
 import 'package:caminhoneiro_app/pages/status.dart';
 import 'package:caminhoneiro_app/pages/home.dart';
 import 'package:caminhoneiro_app/pages/faturamento.dart';
 import 'package:caminhoneiro_app/pages/custos.dart';
 import 'package:caminhoneiro_app/pages/pessoal.dart';
-import 'package:caminhoneiro_app/pages/add.dart';
 import 'package:caminhoneiro_app/pages/registro_page.dart';
-
 
 /// Dependecies
 class AppNavigator extends StatefulWidget {
@@ -21,14 +20,17 @@ class _AppNavigatorState extends State<AppNavigator> {
 
   /// Conteudo das paginas
   static const TextStyle optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[
     /// Link page Home
     HomeApp(),
+
     /// Link page Faturamento
     Faturamento(),
+
     /// Link page Custos
     Custos(),
+
     /// Link page Pessoal
     Pessoal()
   ];
@@ -46,7 +48,6 @@ class _AppNavigatorState extends State<AppNavigator> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-
           /// Bottom Menu
           Container(
             child: Scaffold(
@@ -80,14 +81,13 @@ class _AppNavigatorState extends State<AppNavigator> {
               floatingActionButton: FloatingActionButton(
                 /// Add Popup
                 onPressed: () {
-                  AddRegistro();
-                  /*showAdd(context);*/
+                  _showRegistroPage(); /*showAdd(context);*/
                 },
                 backgroundColor: Colors.lightGreen,
                 child: Icon(Icons.add),
               ),
               floatingActionButtonLocation:
-              FloatingActionButtonLocation.endFloat,
+                  FloatingActionButtonLocation.endFloat,
             ),
           ),
 
@@ -96,5 +96,14 @@ class _AppNavigatorState extends State<AppNavigator> {
         ],
       ),
     );
+  }
+
+  void _showRegistroPage({Registro registro}) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => AddRegistro(
+                  registro: registro,
+                )));
   }
 }
