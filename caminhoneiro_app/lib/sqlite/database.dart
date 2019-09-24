@@ -212,7 +212,7 @@ class DatabaseHelper {
   /// Pega todos os registros
   getAllRegistros() async {
     Database dbRegistro = await db;
-    List listMap = await dbRegistro.rawQuery('SELECT * FROM $registroTable');
+    List listMap = await dbRegistro.rawQuery('SELECT * FROM $registroTable;');
     List<Registro> listRegistro = List();
     for (Map m in listMap) {
       listRegistro.add(Registro.fromMap(m));
@@ -223,7 +223,14 @@ class DatabaseHelper {
   /// Conta a quantidade de registros
   getNumberRegistro() async {
     Database dbRegistro = await db;
-    return Sqflite.firstIntValue(await dbRegistro.rawQuery('SELECT COUNT(*) FROM $registroTable'));
+    return Sqflite.firstIntValue(await dbRegistro.rawQuery('SELECT COUNT(*) FROM $registroTable;'));
+  }
+  
+  /// Valor total
+  Future getTotalRegistro() async {
+    Database dbRegistro = await db;
+    var _sum = await dbRegistro.rawQuery("SELECT SUM($valorColumn) FROM $registroTable;");
+    return _sum.toList();
   }
 
   /// Fecha o banco de dados

@@ -19,6 +19,7 @@ class _HomeAppState extends State<HomeApp> {
     super.initState();
 
     _getAllRegistros();
+
   }
 
   @override

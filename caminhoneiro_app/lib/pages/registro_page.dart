@@ -123,8 +123,22 @@ class _AddRegistroState extends State<AddRegistro> {
                   }),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData)
-                      return Center(
-                        child: CircularProgressIndicator(),
+                      return DropdownButton<Categoria>(
+                        hint: Text(categorias.last.titulo.toString()),
+                        items: categorias.map<DropdownMenuItem<Categoria>>(
+                                (Categoria categoria) {
+                              return DropdownMenuItem<Categoria>(
+                                value: categoria,
+                                child: Text(categoria.titulo),
+                              );
+                            }).toList(),
+                        onChanged: (categoria) {
+                          setState(() {
+                            _selectedCategoria = categoria;
+                            _editedRegistro.categoriaId = _selectedCategoria.id;
+                          });
+                        },
+                        value: _selectedCategoria,
                       );
                     return DropdownButton<Categoria>(
                       hint: Text(_editedRegistro.categoriaId != null
@@ -269,12 +283,4 @@ class _AddRegistroState extends State<AddRegistro> {
       ),
     );
   }
-
-/*_categoriaInit(_id) {
-    return FutureBuilder(
-      future: helper.getCategoria(_id).then((list){
-        return list.titulo;
-      }),
-    );
-  }*/
 }

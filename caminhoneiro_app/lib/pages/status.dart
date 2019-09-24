@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:caminhoneiro_app/sqlite/database.dart';
+import 'package:caminhoneiro_app/sqlite/suport_database.dart';
 import 'package:flutter/material.dart';
 
 class StatusBar extends StatefulWidget {
@@ -6,6 +10,19 @@ class StatusBar extends StatefulWidget {
 }
 
 class _StatusBarState extends State<StatusBar> {
+  DatabaseHelper helper = DatabaseHelper();
+  List<Registro> registros = List();
+  double total;
+
+  @override
+  void initState() {
+    helper.getTotalRegistro().then((list) {
+      setState(() {
+        total = list[0]['SUM(valorColumn)'];
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,7 +41,7 @@ class _StatusBarState extends State<StatusBar> {
             ]),
         child: GestureDetector(
             onTap: () {
-              print("Status Work");
+              print("It's Work");
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -59,7 +76,7 @@ class _StatusBarState extends State<StatusBar> {
                       Padding(
                         padding: EdgeInsets.only(left: 5.0),
                         child: Text(
-                          "150.000,00",
+                          '${total}',
                           textScaleFactor: 3.0,
                           style: TextStyle(
                               color: Colors.black54,
