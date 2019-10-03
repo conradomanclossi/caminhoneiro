@@ -29,30 +29,54 @@ class _InitialConfigurationState extends State<InitialConfiguration> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Inicio'),
-          backgroundColor: Colors.lightGreen,
-        ),
-        body: Container(
-          margin: EdgeInsets.only(top: 60.0),
-          child: Column(
-            children: <Widget>[
-              Text(
-                'Date selected: ${dateFormat.format(_date).toString()}',
-              ),
-              Center(
-                child: RaisedButton(
-                  onPressed: (){
-                    _selectDate(context);
-                  },
-                  child: Text(
-                    'Select Date',
-                  ),
+      appBar: AppBar(
+        title: Text('Inicio'),
+        backgroundColor: Colors.lightGreen,
+      ),
+      body: Column(
+          children: <Widget>[
+            GestureDetector(
+              onTap: (){
+                _selectDate(context);
+              },
+              child: Container(
+                height: 60.0,
+                margin: EdgeInsets.all(20.0),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(50.0),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.lightGreen[200],
+                          blurRadius: 10.0,
+                          spreadRadius: 5.0,
+                          offset: Offset(0, 10))
+                    ]),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(
+                      Icons.calendar_today,
+                      color: Colors.lightGreen,
+                      size: 30.0,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10.0),
+                      child: Text(
+                        dateFormat.format(_date).toString(),
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.lightGreen),
+                      ),
+                    )
+                  ],
                 ),
-              )
-            ],
-          ),
-        ),
+              ),
+            ),
+          ],
+        
+      ),
     );
   }
 }
