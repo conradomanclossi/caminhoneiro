@@ -1,12 +1,12 @@
+import 'package:caminhoneiro_app/pages/registro_page.dart';
+import 'package:caminhoneiro_app/sqlite/database.dart';
+import 'package:caminhoneiro_app/sqlite/suport_database.dart';
 import 'package:flutter/material.dart';
 import 'package:caminhoneiro_app/pages/status.dart';
 import 'package:caminhoneiro_app/pages/home.dart';
 import 'package:caminhoneiro_app/pages/faturamento.dart';
 import 'package:caminhoneiro_app/pages/custos.dart';
 import 'package:caminhoneiro_app/pages/pessoal.dart';
-import 'package:caminhoneiro_app/pages/add.dart';
-
-
 
 /// Dependecies
 class AppNavigation extends StatefulWidget {
@@ -18,6 +18,17 @@ class AppNavigation extends StatefulWidget {
 
 class _AppNavigationState extends State<AppNavigation> {
   int _selectedIndex = 0;
+
+  ///Database
+  DatabaseHelper helper = DatabaseHelper();
+  List<Categoria> categorias = List();
+  List<Registro> registros = List();
+
+  @override
+  void initState() {
+    super.initState();
+    _getAllRegistros();
+  }
 
   /// Conteudo das paginas
   static const TextStyle optionStyle =
@@ -80,7 +91,7 @@ class _AppNavigationState extends State<AppNavigation> {
               floatingActionButton: FloatingActionButton(
                 /// Add Popup
                 onPressed: () {
-                  showAdd(context);
+                  _showRegistroPage();
                 },
                 backgroundColor: Colors.lightGreen,
                 child: Icon(Icons.add),
@@ -95,5 +106,30 @@ class _AppNavigationState extends State<AppNavigation> {
         ],
       ),
     );
+  }
+
+  void _getAllRegistros() {
+    helper.getAllRegistros().then((list) {
+      setState(() {
+        registros = list;
+      });
+    });
+  }
+
+  void _showRegistroPage({Registro registro}) async {
+    final recRegistro = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => AddRegistro(
+              registro: registro,
+            )));
+    if (recRegistro != null) {
+      if (registro != null) {
+        await helper.updateRegistro(recRegistro);
+      } else {
+        await helper.saveRegistro(recRegistro);
+      }
+      _getAllRegistros();
+    }
   }
 }

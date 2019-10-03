@@ -1,3 +1,4 @@
+import 'package:caminhoneiro_app/pages/initial_configuration.dart';
 import 'package:flutter/material.dart';
 import 'package:caminhoneiro_app/pages/navigator.dart';
 
@@ -12,8 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: name_app,
-      home: AppNavigator(),
+      home: InitialConfiguration(),
     );
   }
 }

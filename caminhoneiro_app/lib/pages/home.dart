@@ -11,6 +11,7 @@ class HomeApp extends StatefulWidget {
 class _HomeAppState extends State<HomeApp> {
   ///Database
   DatabaseHelper helper = DatabaseHelper();
+  List<Viagem> viagens = List();
   List<Categoria> categorias = List();
   List<Registro> registros = List();
 
@@ -19,7 +20,6 @@ class _HomeAppState extends State<HomeApp> {
     super.initState();
 
     _getAllRegistros();
-
   }
 
   @override

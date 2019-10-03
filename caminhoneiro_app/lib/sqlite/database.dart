@@ -40,7 +40,8 @@ class DatabaseHelper {
       $idColumn INTEGER PRIMARY KEY,
       $tipoCategoriaColumn TEXT, 
       $tituloColumn TEXT
-      $comissaoColumn FLOAT);""");
+      $comissaoColumn FLOAT);
+      """);
 
       /// Table Registro
       await db.execute("""

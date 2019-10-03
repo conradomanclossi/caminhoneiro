@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:caminhoneiro_app/sqlite/database.dart';
 import 'package:caminhoneiro_app/sqlite/suport_database.dart';
@@ -23,14 +25,18 @@ class _AddRegistroState extends State<AddRegistro> {
   final _tituloController = TextEditingController();
   final _valorController = TextEditingController();
   final _dataController = TextEditingController();
+
+  // Focus
   final _tituloFocus = FocusNode();
 
   // Bool
   bool _registroEdited = false;
+
   Registro _editedRegistro;
 
   @override
   void initState() {
+    super.initState();
     if (widget.registro == null) {
       _editedRegistro = Registro();
     } else {
@@ -55,12 +61,25 @@ class _AddRegistroState extends State<AddRegistro> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Registro",
-      color: Colors.white,
-      home: Scaffold(
+    return WillPopScope(
+      onWillPop: _requestPop,
+      child: Scaffold(
         appBar: AppBar(
+          title: Text("Registro"),
           backgroundColor: Colors.lightGreen,
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.lightGreen,
+          onPressed: () {
+            if (_editedRegistro.titulo != null &&
+                _editedRegistro.titulo.isNotEmpty) {
+              Navigator.pop(context, _editedRegistro);
+              helper.saveRegistro(_editedRegistro);
+            } else {
+              FocusScope.of(context).requestFocus(_tituloFocus);
+            }
+          },
+          child: Icon(Icons.save),
         ),
         body: SingleChildScrollView(
           padding: EdgeInsets.all(30.0),
@@ -92,9 +111,11 @@ class _AddRegistroState extends State<AddRegistro> {
                     );
                   }).toList(),
                   onChanged: (viagem) {
+                    _registroEdited = true;
+                    _editedRegistro.viagemId = 1;
+                    print(_selectedViagem.id);
                     setState(() {
                       _selectedViagem = viagem;
-                      _editedRegistro.viagemId = _selectedViagem.id;
                     });
                   },
                   value: _selectedViagem,
@@ -126,16 +147,18 @@ class _AddRegistroState extends State<AddRegistro> {
                       return DropdownButton<Categoria>(
                         hint: Text(categorias.last.titulo.toString()),
                         items: categorias.map<DropdownMenuItem<Categoria>>(
-                                (Categoria categoria) {
-                              return DropdownMenuItem<Categoria>(
-                                value: categoria,
-                                child: Text(categoria.titulo),
-                              );
-                            }).toList(),
+                            (Categoria categoria) {
+                          return DropdownMenuItem<Categoria>(
+                            value: categoria,
+                            child: Text(categoria.titulo),
+                          );
+                        }).toList(),
                         onChanged: (categoria) {
+                          _registroEdited = true;
+                          _editedRegistro.categoriaId = 1;
+                          print(_selectedCategoria.id);
                           setState(() {
                             _selectedCategoria = categoria;
-                            _editedRegistro.categoriaId = _selectedCategoria.id;
                           });
                         },
                         value: _selectedCategoria,
@@ -180,12 +203,14 @@ class _AddRegistroState extends State<AddRegistro> {
                   controller: _tituloController,
                   focusNode: _tituloFocus,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
                     labelText: 'Titulo',
+                    border: OutlineInputBorder(),
                   ),
                   onChanged: (text) {
                     _registroEdited = true;
-                    _editedRegistro.titulo = text;
+                    setState(() {
+                      _editedRegistro.titulo = text;
+                    });
                   },
                 ),
               ),
@@ -211,7 +236,9 @@ class _AddRegistroState extends State<AddRegistro> {
                   ),
                   onChanged: (text) {
                     _registroEdited = true;
-                    _editedRegistro.valor = double.parse(text);
+                    setState(() {
+                      _editedRegistro.valor = double.parse(text);
+                    });
                   },
                   keyboardType: TextInputType.number,
                 ),
@@ -238,49 +265,82 @@ class _AddRegistroState extends State<AddRegistro> {
                   ),
                   onChanged: (text) {
                     _registroEdited = true;
-                    _editedRegistro.date = text;
+                    setState(() {
+                      _editedRegistro.date = text;
+                    });
                   },
                   keyboardType: TextInputType.datetime,
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  if (_editedRegistro.titulo != null &&
-                      _editedRegistro.titulo.isNotEmpty) {
-                    Navigator.pop(context, _editedRegistro);
-                  } else {
-                    FocusScope.of(context).requestFocus(_tituloFocus);
-                  }
-                },
-                child: Container(
-                  margin: EdgeInsets.only(top: 25.0, bottom: 15.0),
-                  height: 60,
-                  width: 1000,
-                  decoration: BoxDecoration(
-                    color: Colors.orange,
-                    borderRadius: BorderRadius.circular(50.0),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.orange[200],
-                          blurRadius: 10.0,
-                          spreadRadius: 5.0,
-                          offset: Offset(0, 5))
-                    ],
-                  ),
-                  child: Center(
-                      child: RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                        text: 'Salvar',
-                        style: TextStyle(
-                            fontSize: 30.0, fontWeight: FontWeight.bold)),
-                  )),
+              /*GestureDetector(
+              onTap: () {
+                if (_editedRegistro.titulo != null &&
+                    _editedRegistro.titulo.isNotEmpty) {
+                  Navigator.pop(context, _editedRegistro);
+                } else {
+                  FocusScope.of(context).requestFocus(_tituloFocus);
+                }
+              },
+              child: Container(
+                margin: EdgeInsets.only(top: 25.0, bottom: 15.0),
+                height: 60,
+                width: 1000,
+                decoration: BoxDecoration(
+                  color: Colors.orange,
+                  borderRadius: BorderRadius.circular(50.0),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.orange[200],
+                        blurRadius: 10.0,
+                        spreadRadius: 5.0,
+                        offset: Offset(0, 5))
+                  ],
                 ),
+                child: Center(
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                          text: 'Salvar',
+                          style: TextStyle(
+                              fontSize: 30.0, fontWeight: FontWeight.bold)),
+                    )),
               ),
+            ),*/
             ],
           ),
         ),
       ),
     );
+  }
+
+  Future<bool> _requestPop() {
+    if (_registroEdited) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text("Descartar Alterações?"),
+              content: Text("Se sair as alterações serão perdidas."),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("Cancelar"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                FlatButton(
+                  child: Text("Sim"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            );
+          });
+      return Future.value(false);
+    } else {
+      return Future.value(true);
+    }
   }
 }
