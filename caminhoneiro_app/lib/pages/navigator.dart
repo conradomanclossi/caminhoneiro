@@ -7,6 +7,8 @@ import 'package:caminhoneiro_app/pages/custos.dart';
 import 'package:caminhoneiro_app/pages/pessoal.dart';
 import 'package:caminhoneiro_app/pages/registro_page.dart';
 
+import 'add.dart';
+
 /// Dependecies
 class AppNavigator extends StatefulWidget {
   AppNavigator({Key key}) : super(key: key);
@@ -81,7 +83,8 @@ class _AppNavigatorState extends State<AppNavigator> {
               floatingActionButton: FloatingActionButton(
                 /// Add Popup
                 onPressed: () {
-                  _showRegistroPage(); /*showAdd(context);*/
+                  /*_showRegistroPage();*/
+                  showAdd(context);
                 },
                 backgroundColor: Colors.lightGreen,
                 child: Icon(Icons.add),
@@ -100,10 +103,12 @@ class _AppNavigatorState extends State<AppNavigator> {
 
   void _showRegistroPage({Registro registro}) {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => AddRegistro(
-                  registro: registro,
-                )));
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddRegistro(
+          registro: registro,
+        ),
+      ),
+    );
   }
 }
