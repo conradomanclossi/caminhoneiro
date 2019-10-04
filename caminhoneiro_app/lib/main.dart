@@ -1,4 +1,3 @@
-import 'package:caminhoneiro_app/pages/initial_configuration.dart';
 import 'package:flutter/material.dart';
 import 'package:caminhoneiro_app/pages/navigator.dart';
 

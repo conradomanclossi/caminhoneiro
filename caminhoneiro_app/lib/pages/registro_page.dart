@@ -70,6 +70,12 @@ class _AddRegistroState extends State<AddRegistro> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.lightGreen,
           onPressed: () {
+            if (_editedRegistro.viagemId == null) {
+              _editedRegistro.viagemId = viagens.last.id;
+            }
+            if (_editedRegistro.categoriaId == null) {
+              _editedRegistro.categoriaId = categorias.last.id;
+            }
             if (_editedRegistro.titulo != null &&
                 _editedRegistro.titulo.isNotEmpty) {
               Navigator.pop(context, _editedRegistro);
@@ -84,6 +90,7 @@ class _AddRegistroState extends State<AddRegistro> {
           padding: EdgeInsets.all(30.0),
           child: Column(
             children: <Widget>[
+
               /// Viagem Título
               Padding(
                 padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
@@ -104,7 +111,7 @@ class _AddRegistroState extends State<AddRegistro> {
                   width: 500.0,
                   child: FutureBuilder(
                     future:
-                        helper.getViagem(_editedRegistro.viagemId).then((list) {
+                    helper.getViagem(_editedRegistro.viagemId).then((list) {
                       return list.saida;
                     }),
                     builder: (context, snapshot) {
@@ -177,12 +184,12 @@ class _AddRegistroState extends State<AddRegistro> {
                       return DropdownButton<Categoria>(
                         hint: Text(categorias.last.titulo.toString()),
                         items: categorias.map<DropdownMenuItem<Categoria>>(
-                            (Categoria categoria) {
-                          return DropdownMenuItem<Categoria>(
-                            value: categoria,
-                            child: Text(categoria.titulo),
-                          );
-                        }).toList(),
+                                (Categoria categoria) {
+                              return DropdownMenuItem<Categoria>(
+                                value: categoria,
+                                child: Text(categoria.titulo),
+                              );
+                            }).toList(),
                         onChanged: (categoria) {
                           _registroEdited = true;
                           setState(() {
@@ -197,12 +204,12 @@ class _AddRegistroState extends State<AddRegistro> {
                           ? snapshot.data
                           : categorias.last.titulo.toString()),
                       items: categorias.map<DropdownMenuItem<Categoria>>(
-                          (Categoria categoria) {
-                        return DropdownMenuItem<Categoria>(
-                          value: categoria,
-                          child: Text(categoria.titulo),
-                        );
-                      }).toList(),
+                              (Categoria categoria) {
+                            return DropdownMenuItem<Categoria>(
+                              value: categoria,
+                              child: Text(categoria.titulo),
+                            );
+                          }).toList(),
                       onChanged: (categoria) {
                         setState(() {
                           _selectedCategoria = categoria;
@@ -214,6 +221,8 @@ class _AddRegistroState extends State<AddRegistro> {
                   },
                 ),
               ),
+
+              /// Titulo titulo
               Padding(
                 padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                 child: Align(
@@ -227,6 +236,8 @@ class _AddRegistroState extends State<AddRegistro> {
                       ))),
                 ),
               ),
+
+              /// Titulo Selector
               Container(
                 child: TextField(
                   controller: _tituloController,
@@ -243,6 +254,8 @@ class _AddRegistroState extends State<AddRegistro> {
                   },
                 ),
               ),
+
+              /// Valor titulo
               Padding(
                 padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                 child: Align(
@@ -256,6 +269,8 @@ class _AddRegistroState extends State<AddRegistro> {
                       ))),
                 ),
               ),
+
+              /// Valor Selector
               Container(
                 child: TextField(
                   controller: _valorController,
@@ -272,6 +287,8 @@ class _AddRegistroState extends State<AddRegistro> {
                   keyboardType: TextInputType.number,
                 ),
               ),
+
+              /// Data titulo
               Padding(
                 padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                 child: Align(
@@ -285,6 +302,8 @@ class _AddRegistroState extends State<AddRegistro> {
                       ))),
                 ),
               ),
+
+              /// Data selector
               Container(
                 child: TextField(
                   controller: _dataController,
@@ -326,7 +345,6 @@ class _AddRegistroState extends State<AddRegistro> {
                 FlatButton(
                   child: Text("Sim"),
                   onPressed: () {
-                    Navigator.pop(context);
                     Navigator.pop(context);
                   },
                 ),

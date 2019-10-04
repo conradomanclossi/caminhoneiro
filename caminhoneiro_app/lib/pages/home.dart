@@ -132,11 +132,13 @@ class _HomeAppState extends State<HomeApp> {
 
   void _showRegistroPage({Registro registro}) async {
     final recRegistro = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => AddRegistro(
-                  registro: registro,
-                )));
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddRegistro(
+          registro: registro,
+        ),
+      ),
+    );
     if (recRegistro != null) {
       if (registro != null) {
         await helper.updateRegistro(recRegistro);
