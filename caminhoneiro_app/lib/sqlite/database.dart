@@ -39,7 +39,7 @@ class DatabaseHelper {
       CREATE TABLE $categoriaTable(
       $idColumn INTEGER PRIMARY KEY,
       $tipoCategoriaColumn TEXT, 
-      $tituloColumn TEXT
+      $tituloColumn TEXT,
       $comissaoColumn FLOAT);
       """);
 
@@ -66,7 +66,7 @@ class DatabaseHelper {
     return viagem;
   }
 
-  /// Pega um contato
+  /// Pega uma viagem
   Future<Viagem> getViagem(int id) async {
     Database dbViagem = await db;
     List<Map> maps = await dbViagem.query(viagemTable,

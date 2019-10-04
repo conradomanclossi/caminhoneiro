@@ -1,12 +1,9 @@
-import 'package:caminhoneiro_app/sqlite/suport_database.dart';
 import 'package:flutter/material.dart';
 import 'package:caminhoneiro_app/pages/status.dart';
 import 'package:caminhoneiro_app/pages/home.dart';
 import 'package:caminhoneiro_app/pages/faturamento.dart';
 import 'package:caminhoneiro_app/pages/custos.dart';
 import 'package:caminhoneiro_app/pages/pessoal.dart';
-import 'package:caminhoneiro_app/pages/registro_page.dart';
-
 import 'add.dart';
 
 /// Dependecies
@@ -83,7 +80,6 @@ class _AppNavigatorState extends State<AppNavigator> {
               floatingActionButton: FloatingActionButton(
                 /// Add Popup
                 onPressed: () {
-                  /*_showRegistroPage();*/
                   showAdd(context);
                 },
                 backgroundColor: Colors.lightGreen,
@@ -97,17 +93,6 @@ class _AppNavigatorState extends State<AppNavigator> {
           /// Top Status Bar
           StatusBar(),
         ],
-      ),
-    );
-  }
-
-  void _showRegistroPage({Registro registro}) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => AddRegistro(
-          registro: registro,
-        ),
       ),
     );
   }

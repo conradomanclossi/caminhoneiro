@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:caminhoneiro_app/sqlite/database.dart';
 import 'package:caminhoneiro_app/sqlite/suport_database.dart';
 
 class AddRegistro extends StatefulWidget {
+
   final Registro registro;
 
   AddRegistro({this.registro});
@@ -19,7 +19,7 @@ class _AddRegistroState extends State<AddRegistro> {
   List<Categoria> categorias = List();
   List<Viagem> viagens = List();
 
-  // Controladores
+  /// Controladores
   Viagem _selectedViagem;
   Categoria _selectedCategoria;
   final _tituloController = TextEditingController();
@@ -85,6 +85,7 @@ class _AddRegistroState extends State<AddRegistro> {
           padding: EdgeInsets.all(30.0),
           child: Column(
             children: <Widget>[
+              /// Viagem Título
               Padding(
                 padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                 child: Align(
@@ -98,6 +99,7 @@ class _AddRegistroState extends State<AddRegistro> {
                       ))),
                 ),
               ),
+              /// Viagem Selector
               SizedBox(
                 width: 500.0,
                 child: DropdownButton<Viagem>(
@@ -105,9 +107,7 @@ class _AddRegistroState extends State<AddRegistro> {
                   items: viagens.map<DropdownMenuItem<Viagem>>((Viagem viagem) {
                     return DropdownMenuItem<Viagem>(
                       value: viagem,
-                      child: Text(_editedRegistro.viagemId != null
-                          ? viagem.saida
-                          : viagens.last.saida.toString()),
+                      child: Text(viagem.saida),
                     );
                   }).toList(),
                   onChanged: (viagem) {
@@ -121,6 +121,7 @@ class _AddRegistroState extends State<AddRegistro> {
                   value: _selectedViagem,
                 ),
               ),
+              /// Categoria Titulo
               Padding(
                 padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                 child: Align(
@@ -134,6 +135,7 @@ class _AddRegistroState extends State<AddRegistro> {
                       ))),
                 ),
               ),
+              /// Categoria Selector
               SizedBox(
                 width: 500.0,
                 child: FutureBuilder(
@@ -272,40 +274,6 @@ class _AddRegistroState extends State<AddRegistro> {
                   keyboardType: TextInputType.datetime,
                 ),
               ),
-              /*GestureDetector(
-              onTap: () {
-                if (_editedRegistro.titulo != null &&
-                    _editedRegistro.titulo.isNotEmpty) {
-                  Navigator.pop(context, _editedRegistro);
-                } else {
-                  FocusScope.of(context).requestFocus(_tituloFocus);
-                }
-              },
-              child: Container(
-                margin: EdgeInsets.only(top: 25.0, bottom: 15.0),
-                height: 60,
-                width: 1000,
-                decoration: BoxDecoration(
-                  color: Colors.orange,
-                  borderRadius: BorderRadius.circular(50.0),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.orange[200],
-                        blurRadius: 10.0,
-                        spreadRadius: 5.0,
-                        offset: Offset(0, 5))
-                  ],
-                ),
-                child: Center(
-                    child: RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                          text: 'Salvar',
-                          style: TextStyle(
-                              fontSize: 30.0, fontWeight: FontWeight.bold)),
-                    )),
-              ),
-            ),*/
             ],
           ),
         ),
