@@ -4,7 +4,6 @@ import 'package:caminhoneiro_app/sqlite/database.dart';
 import 'package:caminhoneiro_app/sqlite/suport_database.dart';
 
 class AddRegistro extends StatefulWidget {
-
   final Registro registro;
 
   AddRegistro({this.registro});
@@ -99,28 +98,56 @@ class _AddRegistroState extends State<AddRegistro> {
                       ))),
                 ),
               ),
+
               /// Viagem Selector
               SizedBox(
-                width: 500.0,
-                child: DropdownButton<Viagem>(
-                  hint: Text(viagens.last.saida.toString()),
-                  items: viagens.map<DropdownMenuItem<Viagem>>((Viagem viagem) {
-                    return DropdownMenuItem<Viagem>(
-                      value: viagem,
-                      child: Text(viagem.saida),
-                    );
-                  }).toList(),
-                  onChanged: (viagem) {
-                    _registroEdited = true;
-                    _editedRegistro.viagemId = 1;
-                    print(_selectedViagem.id);
-                    setState(() {
-                      _selectedViagem = viagem;
-                    });
-                  },
-                  value: _selectedViagem,
-                ),
-              ),
+                  width: 500.0,
+                  child: FutureBuilder(
+                    future:
+                        helper.getViagem(_editedRegistro.viagemId).then((list) {
+                      return list.saida;
+                    }),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData)
+                        return DropdownButton<Viagem>(
+                          hint: Text(viagens.last.saida.toString()),
+                          items: viagens
+                              .map<DropdownMenuItem<Viagem>>((Viagem viagem) {
+                            return DropdownMenuItem<Viagem>(
+                              value: viagem,
+                              child: Text(viagem.saida),
+                            );
+                          }).toList(),
+                          onChanged: (viagem) {
+                            _registroEdited = true;
+                            setState(() {
+                              _editedRegistro.viagemId = 1;
+                              _selectedViagem = viagem;
+                            });
+                          },
+                          value: _selectedViagem,
+                        );
+                      return DropdownButton<Viagem>(
+                        hint: Text(_editedRegistro.viagemId.toString() != null
+                            ? snapshot.data
+                            : viagens.last.saida.toString()),
+                        items: viagens
+                            .map<DropdownMenuItem<Viagem>>((Viagem viagem) {
+                          return DropdownMenuItem<Viagem>(
+                            value: viagem,
+                            child: Text(viagem.saida),
+                          );
+                        }).toList(),
+                        onChanged: (viagem) {
+                          setState(() {
+                            _selectedViagem = viagem;
+                            _editedRegistro.viagemId = _selectedViagem.id;
+                          });
+                        },
+                      );
+                    },
+                  )),
+
               /// Categoria Titulo
               Padding(
                 padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
@@ -135,6 +162,7 @@ class _AddRegistroState extends State<AddRegistro> {
                       ))),
                 ),
               ),
+
               /// Categoria Selector
               SizedBox(
                 width: 500.0,
@@ -157,9 +185,8 @@ class _AddRegistroState extends State<AddRegistro> {
                         }).toList(),
                         onChanged: (categoria) {
                           _registroEdited = true;
-                          _editedRegistro.categoriaId = 1;
-                          print(_selectedCategoria.id);
                           setState(() {
+                            _editedRegistro.categoriaId = 1;
                             _selectedCategoria = categoria;
                           });
                         },
