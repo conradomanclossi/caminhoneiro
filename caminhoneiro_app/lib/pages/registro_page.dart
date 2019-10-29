@@ -77,9 +77,13 @@ class _AddRegistroState extends State<AddRegistro> {
               _editedRegistro.categoriaId = categorias.last.id;
             }
             if (_editedRegistro.titulo != null &&
-                _editedRegistro.titulo.isNotEmpty) {
+                _editedRegistro.titulo.isNotEmpty &&
+                _editedRegistro.id == null) {
               Navigator.pop(context, _editedRegistro);
               helper.saveRegistro(_editedRegistro);
+            } else if (_editedRegistro.id != null) {
+              Navigator.pop(context, _editedRegistro);
+              helper.updateRegistro(_editedRegistro);
             } else {
               FocusScope.of(context).requestFocus(_tituloFocus);
             }
@@ -90,7 +94,6 @@ class _AddRegistroState extends State<AddRegistro> {
           padding: EdgeInsets.all(30.0),
           child: Column(
             children: <Widget>[
-
               /// Viagem Título
               Padding(
                 padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
@@ -111,7 +114,7 @@ class _AddRegistroState extends State<AddRegistro> {
                   width: 500.0,
                   child: FutureBuilder(
                     future:
-                    helper.getViagem(_editedRegistro.viagemId).then((list) {
+                        helper.getViagem(_editedRegistro.viagemId).then((list) {
                       return list.saida;
                     }),
                     builder: (context, snapshot) {
@@ -184,12 +187,12 @@ class _AddRegistroState extends State<AddRegistro> {
                       return DropdownButton<Categoria>(
                         hint: Text(categorias.last.titulo.toString()),
                         items: categorias.map<DropdownMenuItem<Categoria>>(
-                                (Categoria categoria) {
-                              return DropdownMenuItem<Categoria>(
-                                value: categoria,
-                                child: Text(categoria.titulo),
-                              );
-                            }).toList(),
+                            (Categoria categoria) {
+                          return DropdownMenuItem<Categoria>(
+                            value: categoria,
+                            child: Text(categoria.titulo),
+                          );
+                        }).toList(),
                         onChanged: (categoria) {
                           _registroEdited = true;
                           setState(() {
@@ -204,12 +207,12 @@ class _AddRegistroState extends State<AddRegistro> {
                           ? snapshot.data
                           : categorias.last.titulo.toString()),
                       items: categorias.map<DropdownMenuItem<Categoria>>(
-                              (Categoria categoria) {
-                            return DropdownMenuItem<Categoria>(
-                              value: categoria,
-                              child: Text(categoria.titulo),
-                            );
-                          }).toList(),
+                          (Categoria categoria) {
+                        return DropdownMenuItem<Categoria>(
+                          value: categoria,
+                          child: Text(categoria.titulo),
+                        );
+                      }).toList(),
                       onChanged: (categoria) {
                         setState(() {
                           _selectedCategoria = categoria;
@@ -345,6 +348,7 @@ class _AddRegistroState extends State<AddRegistro> {
                 FlatButton(
                   child: Text("Sim"),
                   onPressed: () {
+                    Navigator.pop(context);
                     Navigator.pop(context);
                   },
                 ),
