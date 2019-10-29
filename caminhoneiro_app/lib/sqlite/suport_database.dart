@@ -79,7 +79,7 @@ class Categoria {
 
   @override
   String toString() {
-    return "Categoria Faturamento(id: $id, tipo: $tipo, título: $titulo, comissão: $comissao)";
+    return "Categoria(id: $id, tipo: $tipo, título: $titulo, comissão: $comissao)";
   }
 }
 

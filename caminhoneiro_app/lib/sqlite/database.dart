@@ -135,7 +135,7 @@ class DatabaseHelper {
   }
 
 
-  /// Deleta uma categoria faturamento
+  /// Deleta uma categoria
   Future<int> deleteCategoria(int id) async {
     Database dbCategoria = await db;
     return await dbCategoria

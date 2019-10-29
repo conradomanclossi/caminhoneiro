@@ -25,9 +25,6 @@ class _InitialConfigurationState extends State<InitialConfiguration> {
     }
   }
 
-  ///PageView
-  ///https://api.flutter.dev/flutter/widgets/PageView-class.html
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +52,7 @@ class _InitialConfigurationState extends State<InitialConfiguration> {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.lightGreen[200],
+                      color: Colors.lightGreen[200],
                       blurRadius: 10.0,
                       spreadRadius: 5.0,
                       offset: Offset(0, 10))

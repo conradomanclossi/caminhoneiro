@@ -279,7 +279,7 @@ categoriaAdd(BuildContext context) {
 
           return Container(
             margin: EdgeInsets.only(
-                top: 100.0, bottom: 100.0, left: 20.0, right: 20.0),
+                top: 175.0, bottom: 175.0, left: 20.0, right: 20.0),
             child: Scaffold(
               backgroundColor: Color(0xFFFFFF),
               body: ClipRRect(
@@ -315,29 +315,28 @@ categoriaAdd(BuildContext context) {
 
                         /// Tipo Selector
                         DropdownButton<String>(
-                          value: dropdownValue,
-                          icon: Icon(Icons.arrow_downward),
-                          iconSize: 24,
-                          elevation: 16,
-                          style: TextStyle(color: Colors.deepPurple),
-                          underline: Container(
-                            height: 2,
-                            color: Colors.deepPurpleAccent,
-                          ),
-                          onChanged: (String newValue) {
-                            setState(() {
-                              c.tipo = newValue;
-                              dropdownValue = newValue;
-                            });
-                          },
-                          items: <String>['Faturamento', 'Custo']
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        ),
+                            value: dropdownValue,
+                            icon: Icon(Icons.arrow_downward),
+                            iconSize: 24,
+                            elevation: 16,
+                            style: TextStyle(color: Colors.deepPurple),
+                            underline: Container(
+                              height: 2,
+                              color: Colors.deepPurpleAccent,
+                            ),
+                            onChanged: (String newValue) {
+                              setState(() {
+                                dropdownValue = newValue;
+                                print(newValue);
+                              });
+                            },
+                            items: <String>['Faturamento', 'Custo']
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList()),
 
                         /// Título título
                         Padding(
@@ -375,9 +374,7 @@ categoriaAdd(BuildContext context) {
                           child: RaisedButton(
                             color: Colors.lightGreen,
                             onPressed: () {
-                              if (c.tipo == null) {
-                                c.tipo = 'Faturamento';
-                              }
+                              c.tipo = dropdownValue;
                               helper.saveCategoria(c);
                               Navigator.pop(context);
                             },
