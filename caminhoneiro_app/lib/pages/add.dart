@@ -338,19 +338,21 @@ categoriaAdd(BuildContext context) {
                         ),
 
                         /// Comissão título
-                        Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Comissão',
-                            ),
-                            onChanged: (text) {
-                              c.comissao = double.parse(text);
-                            },
-                            keyboardType: TextInputType.number,
-                          ),
-                        ),
+                        dropdownValue == 'Custo'
+                            ? Text('')
+                            : Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: 'Comissão',
+                                  ),
+                                  onChanged: (text) {
+                                    c.comissao = double.parse(text);
+                                  },
+                                  keyboardType: TextInputType.number,
+                                ),
+                              ),
 
                         /// Salvar
                         Container(

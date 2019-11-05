@@ -1,8 +1,8 @@
+import 'package:caminhoneiro_app/pages/categorias.dart';
 import 'package:flutter/material.dart';
 import 'package:caminhoneiro_app/pages/status.dart';
 import 'package:caminhoneiro_app/pages/home.dart';
 import 'package:caminhoneiro_app/pages/faturamento.dart';
-import 'package:caminhoneiro_app/pages/custos.dart';
 import 'package:caminhoneiro_app/pages/pessoal.dart';
 import 'add.dart';
 
@@ -27,8 +27,8 @@ class _AppNavigatorState extends State<AppNavigator> {
     /// Link page Faturamento
     Faturamento(),
 
-    /// Link page Custos
-    Custos(),
+    /// Link page Categorias
+    Categorias(),
 
     /// Link page Pessoal
     Pessoal()

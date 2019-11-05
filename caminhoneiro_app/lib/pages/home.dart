@@ -87,7 +87,7 @@ class _HomeAppState extends State<HomeApp> {
                       style: TextStyle(
                           color: Colors.black45,
                           fontWeight: FontWeight.bold,
-                          fontSize: 10.0), // default text style
+                          fontSize: 10.0),
                       children: <TextSpan>[
                         TextSpan(
                             text: '\n${registros[index].titulo}',
