@@ -57,6 +57,7 @@ class _StatusBarState extends State<StatusBar> {
                 ),
               ),
             ),
+
             /// TOTAL VALOR
             Align(
               alignment: Alignment.centerLeft,
@@ -73,7 +74,7 @@ class _StatusBarState extends State<StatusBar> {
                   Padding(
                     padding: EdgeInsets.only(left: 5.0),
                     child: Text(
-                      '${total}',
+                      '$total',
                       textScaleFactor: 3.0,
                       style: TextStyle(
                           color: Colors.black54, fontWeight: FontWeight.bold),

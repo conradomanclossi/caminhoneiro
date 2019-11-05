@@ -257,26 +257,12 @@ viagemAdd(BuildContext context) {
 }
 
 categoriaAdd(BuildContext context) {
+  Categoria c = Categoria();
   showDialog(
     context: context,
     builder: (BuildContext context) {
       return StatefulBuilder(
         builder: (context, setState) {
-          Future<Null> selectDate(BuildContext context) async {
-            final DateTime picked = await showDatePicker(
-                context: context,
-                initialDate: date,
-                firstDate: DateTime(2019),
-                lastDate: DateTime(2020));
-            if (picked != null && picked != date) {
-              setState(() {
-                date = picked;
-              });
-            }
-          }
-
-          Categoria c = Categoria();
-
           return Container(
             margin: EdgeInsets.only(
                 top: 175.0, bottom: 175.0, left: 20.0, right: 20.0),
@@ -327,7 +313,6 @@ categoriaAdd(BuildContext context) {
                             onChanged: (String newValue) {
                               setState(() {
                                 dropdownValue = newValue;
-                                print(newValue);
                               });
                             },
                             items: <String>['Faturamento', 'Custo']
