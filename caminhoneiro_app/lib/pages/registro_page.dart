@@ -33,7 +33,6 @@ class _AddRegistroState extends State<AddRegistro> {
 
   Registro _editedRegistro;
 
-  String categoriaPositivoNegativo;
 
   @override
   void initState() {
@@ -219,11 +218,6 @@ class _AddRegistroState extends State<AddRegistro> {
                         setState(() {
                           _selectedCategoria = categoria;
                           _editedRegistro.categoriaId = _selectedCategoria.id;
-                          if (categoria.tipo == 'Custo') {
-                            return categoriaPositivoNegativo = '-';
-                          } else {
-                            return categoriaPositivoNegativo = '';
-                          }
                         });
                       },
                       value: _selectedCategoria,
@@ -291,8 +285,7 @@ class _AddRegistroState extends State<AddRegistro> {
                   onChanged: (text) {
                     _registroEdited = true;
                     setState(() {
-                      _editedRegistro.valor = double.parse(
-                          '$categoriaPositivoNegativo${double.parse(text)}');
+                      _editedRegistro.valor = double.parse(text);
                     });
                   },
                   keyboardType: TextInputType.number,

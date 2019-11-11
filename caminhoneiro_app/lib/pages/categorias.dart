@@ -14,15 +14,12 @@ class _CategoriasState extends State<Categorias> {
   List<Categoria> categorias = List();
   Categoria lastRemoved = Categoria();
 
-
-
   @override
   void initState() {
     super.initState();
     helper.getAllCategorias().then((list) {
       setState(() {
         categorias = list;
-        print(categorias);
       });
     });
   }
@@ -51,12 +48,13 @@ class _CategoriasState extends State<Categorias> {
           content: Text("Categoria ${lastRemoved.titulo} removida"),
           action: SnackBarAction(
             label: "Desfazer",
-            onPressed: (){
+            onPressed: () {
               setState(() {
                 helper.saveCategoria(lastRemoved);
               });
             },
-          ), duration: Duration(seconds: 3),
+          ),
+          duration: Duration(seconds: 3),
         );
         Scaffold.of(context).showSnackBar(snack);
       },

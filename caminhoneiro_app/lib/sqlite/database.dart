@@ -134,7 +134,6 @@ class DatabaseHelper {
     }
   }
 
-
   /// Deleta uma categoria
   Future<int> deleteCategoria(int id) async {
     Database dbCategoria = await db;
@@ -207,7 +206,7 @@ class DatabaseHelper {
   Future<int> updateRegistro(Registro registro) async {
     Database dbRegistro = await db;
     return await dbRegistro.update(registroTable, registro.toMap(),
-    where: '$idColumn = ?', whereArgs: [registro.id]);
+        where: '$idColumn = ?', whereArgs: [registro.id]);
   }
 
   /// Pega todos os registros
@@ -221,16 +220,29 @@ class DatabaseHelper {
     return listRegistro;
   }
 
+  /// Seleciona registro por viagem
+  selectRegistro(_search) async {
+    Database dbRegistro = await db;
+    List listMap = await dbRegistro.rawQuery('SELECT * FROM $viagemTable WHERE $viagemColumn = $_search');
+    List<Registro> listRegistro = List();
+    for (Map m in listMap) {
+      listRegistro.add(Registro.fromMap(m));
+    }
+    return listRegistro;
+  }
+
   /// Conta a quantidade de registros
   getNumberRegistro() async {
     Database dbRegistro = await db;
-    return Sqflite.firstIntValue(await dbRegistro.rawQuery('SELECT COUNT(*) FROM $registroTable;'));
+    return Sqflite.firstIntValue(
+        await dbRegistro.rawQuery('SELECT COUNT(*) FROM $registroTable;'));
   }
-  
+
   /// Valor total
   Future getTotalRegistro() async {
     Database dbRegistro = await db;
-    var _sum = await dbRegistro.rawQuery("SELECT SUM($valorColumn) FROM $registroTable;");
+    var _sum = await dbRegistro
+        .rawQuery("SELECT SUM($valorColumn) FROM $registroTable;");
     return _sum.toList();
   }
 

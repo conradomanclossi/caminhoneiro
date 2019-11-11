@@ -67,7 +67,7 @@ class _AppNavigatorState extends State<AppNavigator> {
                       icon: Icon(Icons.monetization_on),
                       title: Text("Faturamento")),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.money_off), title: Text("Categorias")),
+                      icon: Icon(Icons.category), title: Text("Categorias")),
                   BottomNavigationBarItem(
                       icon: Icon(Icons.person), title: Text("Pessoal"))
                 ],

@@ -15,10 +15,21 @@ class _HomeAppState extends State<HomeApp> {
   List<Categoria> categorias = List();
   List<Registro> registros = List();
 
+  Viagem _selectedViagem;
+  List<Registro> selectedRegistros = List();
+
   @override
   void initState() {
     super.initState();
+
     _getAllRegistros();
+
+    helper.getAllViagens().then((list) {
+      setState(() {
+        viagens = list;
+        //_selectedViagem = viagens.last;
+      });
+    });
   }
 
   @override
@@ -26,7 +37,7 @@ class _HomeAppState extends State<HomeApp> {
     return ListView.builder(
       padding: EdgeInsets.only(top: 60.0),
       itemCount: registros.length,
-      itemBuilder: (context, index) {
+      itemBuilder: (BuildContext context, int index) {
         return _faturamentoCard(context, index);
       },
     );

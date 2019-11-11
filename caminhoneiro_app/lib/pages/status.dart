@@ -14,6 +14,7 @@ class _StatusBarState extends State<StatusBar> {
 
   @override
   void initState() {
+    super.initState();
     helper.getTotalRegistro().then((list) {
       setState(() {
         total = list[0]['SUM(valorColumn)'];
