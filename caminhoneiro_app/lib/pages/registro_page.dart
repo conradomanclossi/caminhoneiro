@@ -33,6 +33,9 @@ class _AddRegistroState extends State<AddRegistro> {
 
   Registro _editedRegistro;
 
+  String lastViagem;
+  String lastCategoria;
+
 
   @override
   void initState() {
@@ -49,12 +52,14 @@ class _AddRegistroState extends State<AddRegistro> {
     helper.getAllCategorias().then((list) {
       setState(() {
         categorias = list;
+        lastCategoria = categorias.last.titulo.toString();
       });
     });
 
     helper.getAllViagens().then((list) {
       setState(() {
         viagens = list;
+        lastViagem = viagens.last.saida.toString();
       });
     });
   }
@@ -121,7 +126,7 @@ class _AddRegistroState extends State<AddRegistro> {
                     builder: (context, snapshot) {
                       if (!snapshot.hasData)
                         return DropdownButton<Viagem>(
-                          hint: Text(viagens.last.saida.toString()),
+                          hint: Text(lastViagem.toString()),
                           items: viagens
                               .map<DropdownMenuItem<Viagem>>((Viagem viagem) {
                             return DropdownMenuItem<Viagem>(
@@ -141,7 +146,7 @@ class _AddRegistroState extends State<AddRegistro> {
                       return DropdownButton<Viagem>(
                         hint: Text(_editedRegistro.viagemId.toString() != null
                             ? snapshot.data
-                            : viagens.last.saida.toString()),
+                            : lastViagem.toString()),
                         items: viagens
                             .map<DropdownMenuItem<Viagem>>((Viagem viagem) {
                           return DropdownMenuItem<Viagem>(
@@ -186,7 +191,7 @@ class _AddRegistroState extends State<AddRegistro> {
                   builder: (context, snapshot) {
                     if (!snapshot.hasData)
                       return DropdownButton<Categoria>(
-                        hint: Text(categorias.last.titulo.toString()),
+                        hint: Text(lastCategoria.toString()),
                         items: categorias.map<DropdownMenuItem<Categoria>>(
                             (Categoria categoria) {
                           return DropdownMenuItem<Categoria>(
@@ -206,7 +211,7 @@ class _AddRegistroState extends State<AddRegistro> {
                     return DropdownButton<Categoria>(
                       hint: Text(_editedRegistro.categoriaId != null
                           ? snapshot.data
-                          : categorias.last.titulo.toString()),
+                          : lastCategoria.toString()),
                       items: categorias.map<DropdownMenuItem<Categoria>>(
                           (Categoria categoria) {
                         return DropdownMenuItem<Categoria>(

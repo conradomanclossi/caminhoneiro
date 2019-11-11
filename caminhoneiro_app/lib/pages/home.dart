@@ -15,7 +15,6 @@ class _HomeAppState extends State<HomeApp> {
   List<Categoria> categorias = List();
   List<Registro> registros = List();
 
-  Viagem _selectedViagem;
   List<Registro> selectedRegistros = List();
 
   @override
@@ -27,7 +26,6 @@ class _HomeAppState extends State<HomeApp> {
     helper.getAllViagens().then((list) {
       setState(() {
         viagens = list;
-        //_selectedViagem = viagens.last;
       });
     });
   }

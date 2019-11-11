@@ -15,20 +15,52 @@ class _FaturamentoState extends State<Faturamento> {
   List<Categoria> categorias = List();
   List<Registro> registros = List();
 
+  Viagem _selectedViagem;
+  Viagem viagem;
+  String last;
+
   @override
   void initState() {
     super.initState();
     _getAllRegistros();
+
+    helper.getAllViagens().then((list) async {
+      viagens = list;
+      last = viagens.last.saida.toString();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: EdgeInsets.only(top: 60.0),
-      itemCount: registros.length,
-      itemBuilder: (context, index) {
-        return _faturamentoCard(context, index);
-      },
+    return Stack(
+      children: <Widget>[
+        ListView.builder(
+          padding: EdgeInsets.only(top: 120.0),
+          itemCount: registros.length,
+          itemBuilder: (context, index) {
+            return _faturamentoCard(context, index);
+          },
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 80.0, left: 40.0),
+          child: DropdownButton<Viagem>(
+            hint: Text(last.toString()),
+            items: viagens.map<DropdownMenuItem<Viagem>>((Viagem viagem) {
+              return DropdownMenuItem<Viagem>(
+                value: viagem,
+                child: Text(viagem.saida),
+              );
+            }).toList(),
+            onChanged: (viagem) {
+              setState(() {
+                _selectedViagem = viagem;
+                _getAllRegistros();
+              });
+            },
+            value: _selectedViagem,
+          ),
+        ),
+      ],
     );
   }
 
@@ -72,7 +104,7 @@ class _FaturamentoState extends State<Faturamento> {
               padding: EdgeInsets.only(left: 10.0),
               child: FutureBuilder(
                 future: helper.getCategoria(registros[index].categoriaId).then(
-                      (list) {
+                  (list) {
                     return list.titulo;
                   },
                 ),
@@ -149,11 +181,19 @@ class _FaturamentoState extends State<Faturamento> {
     }
   }
 
-  void _getAllRegistros() {
-    helper.getAllRegistros().then((list) {
-      setState(() {
-        registros = list;
+  void _getAllRegistros() async {
+    if (_selectedViagem == null) {
+      await helper.getAllRegistros().then((list) {
+        setState(() {
+          registros = list;
+        });
       });
-    });
+    } else {
+      await helper.selectRegistro(_selectedViagem.id).then((list) {
+        setState(() {
+          registros = list;
+        });
+      });
+    }
   }
 }

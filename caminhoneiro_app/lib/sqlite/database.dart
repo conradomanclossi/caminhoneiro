@@ -221,14 +221,28 @@ class DatabaseHelper {
   }
 
   /// Seleciona registro por viagem
-  selectRegistro(_search) async {
+  selectRegistro(int id) async {
     Database dbRegistro = await db;
-    List listMap = await dbRegistro.rawQuery('SELECT * FROM $viagemTable WHERE $viagemColumn = $_search');
     List<Registro> listRegistro = List();
-    for (Map m in listMap) {
-      listRegistro.add(Registro.fromMap(m));
+    List<Map> maps = await dbRegistro.query(registroTable,
+        columns: [
+          idColumn,
+          viagemColumn,
+          categoriaColumn,
+          dateColumn,
+          tituloColumn,
+          valorColumn
+        ],
+        where: '$viagemColumn = ?',
+        whereArgs: [id]);
+    if (maps.length > 0) {
+      for (Map m in maps){
+        listRegistro.add(Registro.fromMap(m));
+      }
+      return listRegistro;
+    } else {
+      return null;
     }
-    return listRegistro;
   }
 
   /// Conta a quantidade de registros
