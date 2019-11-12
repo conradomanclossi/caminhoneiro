@@ -1,7 +1,11 @@
+// Package
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
+// Pages
 import 'package:caminhoneiro_app/pages/registro_page.dart';
 import 'package:caminhoneiro_app/sqlite/database.dart';
 import 'package:caminhoneiro_app/sqlite/suport_database.dart';
-import 'package:flutter/material.dart';
 
 class Faturamento extends StatefulWidget {
   @override
@@ -19,6 +23,8 @@ class _FaturamentoState extends State<Faturamento> {
   Viagem viagem;
   String last;
 
+  DateFormat dateFormat = DateFormat('dd/MM/yyyy');
+
   @override
   void initState() {
     super.initState();
@@ -26,7 +32,7 @@ class _FaturamentoState extends State<Faturamento> {
 
     helper.getAllViagens().then((list) async {
       viagens = list;
-      last = viagens.last.saida.toString();
+      last = dateFormat.format(DateTime.parse(viagens.last.saida));
     });
   }
 
@@ -35,12 +41,14 @@ class _FaturamentoState extends State<Faturamento> {
     return Stack(
       children: <Widget>[
         ListView.builder(
-          padding: EdgeInsets.only(top: 160.0),
+          padding: EdgeInsets.only(top: 150.0),
           itemCount: registros.length,
           itemBuilder: (context, index) {
             return _faturamentoCard(context, index);
           },
         ),
+
+        /// Selector
         Padding(
           padding: EdgeInsets.only(top: 60.0),
           child: Container(
@@ -95,7 +103,10 @@ class _FaturamentoState extends State<Faturamento> {
                                   color: Colors.white,
                                 ),
                               ),
-                              Text(viagem.saida,
+                              Text(
+                                  dateFormat
+                                      .format(DateTime.parse(viagem.saida))
+                                      .toString(),
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,

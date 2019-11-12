@@ -1,8 +1,11 @@
-import 'package:caminhoneiro_app/pages/registro_page.dart';
-import 'package:caminhoneiro_app/sqlite/database.dart';
-import 'package:caminhoneiro_app/sqlite/suport_database.dart';
+// Package
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+// Pages
+import 'package:caminhoneiro_app/sqlite/database.dart';
+import 'package:caminhoneiro_app/pages/registro_page.dart';
+import 'package:caminhoneiro_app/sqlite/suport_database.dart';
 
 DateTime date = DateTime.now();
 DateFormat dateFormat = DateFormat('dd/MM/yyyy');
@@ -130,6 +133,7 @@ showAdd(BuildContext context) {
   );
 }
 
+/// Viagem Add
 viagemAdd(BuildContext context) {
   showDialog(
     context: context,
@@ -256,6 +260,7 @@ viagemAdd(BuildContext context) {
   );
 }
 
+/// Categoria Add
 categoriaAdd(BuildContext context) {
   Categoria c = Categoria();
   showDialog(

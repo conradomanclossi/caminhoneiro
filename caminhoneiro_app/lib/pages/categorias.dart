@@ -1,7 +1,9 @@
-import 'package:caminhoneiro_app/sqlite/database.dart';
-import 'package:caminhoneiro_app/sqlite/suport_database.dart';
+// Package
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+// Pages
+import 'package:caminhoneiro_app/sqlite/database.dart';
+import 'package:caminhoneiro_app/sqlite/suport_database.dart';
 
 class Categorias extends StatefulWidget {
   @override
@@ -27,7 +29,7 @@ class _CategoriasState extends State<Categorias> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: EdgeInsets.only(top: 80.0, left: 20.0, right: 20.0),
+      padding: EdgeInsets.only(top: 80.0),
       itemCount: categorias.length,
       itemBuilder: (context, index) {
         return listCategoria(context, index);
@@ -72,7 +74,7 @@ class _CategoriasState extends State<Categorias> {
       direction: DismissDirection.startToEnd,
       child: Container(
         height: 70.0,
-        margin: EdgeInsets.only(top: 20.0),
+        margin: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
         decoration: BoxDecoration(
             color: categorias[index].tipo == 'Faturamento'
                 ? Colors.lightGreen
