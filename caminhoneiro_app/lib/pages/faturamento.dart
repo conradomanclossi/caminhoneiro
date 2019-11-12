@@ -63,21 +63,46 @@ class _FaturamentoState extends State<Faturamento> {
                 child: DropdownButton<Viagem>(
                   underline: SizedBox(),
                   iconEnabledColor: Colors.white,
-                  iconSize: 30,
-                  hint: Text(last.toString(),
-                      style: TextStyle(
+                  iconSize: 0,
+                  hint: Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10.0),
+                        child: Icon(
+                          Icons.calendar_today,
                           color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25.0)),
+                        ),
+                      ),
+                      Text(last.toString(),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25.0)),
+                    ],
+                  ),
                   items: viagens.map<DropdownMenuItem<Viagem>>((Viagem viagem) {
                     return DropdownMenuItem<Viagem>(
                       value: viagem,
                       child: Center(
-                        child: Text(viagem.saida,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25.0)),
+                        child: SizedBox(
+                          width: 200,
+                          child: Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10.0),
+                                child: Icon(
+                                  Icons.calendar_today,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Text(viagem.saida,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 25.0)),
+                            ],
+                          ),
+                        ),
                       ),
                     );
                   }).toList(),
