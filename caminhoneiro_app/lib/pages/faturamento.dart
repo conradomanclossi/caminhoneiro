@@ -35,29 +35,62 @@ class _FaturamentoState extends State<Faturamento> {
     return Stack(
       children: <Widget>[
         ListView.builder(
-          padding: EdgeInsets.only(top: 120.0),
+          padding: EdgeInsets.only(top: 160.0),
           itemCount: registros.length,
           itemBuilder: (context, index) {
             return _faturamentoCard(context, index);
           },
         ),
         Padding(
-          padding: EdgeInsets.only(top: 80.0, left: 40.0),
-          child: DropdownButton<Viagem>(
-            hint: Text(last.toString()),
-            items: viagens.map<DropdownMenuItem<Viagem>>((Viagem viagem) {
-              return DropdownMenuItem<Viagem>(
-                value: viagem,
-                child: Text(viagem.saida),
-              );
-            }).toList(),
-            onChanged: (viagem) {
-              setState(() {
-                _selectedViagem = viagem;
-                _getAllRegistros();
-              });
-            },
-            value: _selectedViagem,
+          padding: EdgeInsets.only(top: 60.0),
+          child: Container(
+            height: 70.0,
+            width: 10000,
+            margin: EdgeInsets.all(20.0),
+            decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(50),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.blue[200],
+                      blurRadius: 10,
+                      spreadRadius: 5,
+                      offset: Offset(0, 5)),
+                ]),
+            child: Theme(
+              data: Theme.of(context).copyWith(canvasColor: Colors.blue),
+              child: Center(
+                child: DropdownButton<Viagem>(
+                  underline: SizedBox(),
+                  iconEnabledColor: Colors.white,
+                  iconSize: 30,
+                  hint: Text(last.toString(),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25.0)),
+                  items: viagens.map<DropdownMenuItem<Viagem>>((Viagem viagem) {
+                    return DropdownMenuItem<Viagem>(
+                      value: viagem,
+                      child: Center(
+                        child: Text(viagem.saida,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25.0)),
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (viagem) {
+                    setState(() {
+                      _selectedViagem = viagem;
+                      _getAllRegistros();
+                    });
+                  },
+                  value: _selectedViagem,
+                ),
+              ),
+            ),
           ),
         ),
       ],
