@@ -1,10 +1,13 @@
-import 'package:caminhoneiro_app/pages/categorias.dart';
+// Packages
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+// Pages
+import 'package:caminhoneiro_app/pages/categorias.dart';
 import 'package:caminhoneiro_app/pages/status.dart';
 import 'package:caminhoneiro_app/pages/home.dart';
 import 'package:caminhoneiro_app/pages/faturamento.dart';
 import 'package:caminhoneiro_app/pages/pessoal.dart';
-import 'add.dart';
+import 'package:caminhoneiro_app/pages/add.dart';
 
 /// Dependecies
 class AppNavigator extends StatefulWidget {

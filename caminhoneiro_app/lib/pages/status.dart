@@ -1,6 +1,9 @@
+// Packages
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+// Pages
 import 'package:caminhoneiro_app/sqlite/database.dart';
 import 'package:caminhoneiro_app/sqlite/suport_database.dart';
-import 'package:flutter/material.dart';
 
 class StatusBar extends StatefulWidget {
   @override

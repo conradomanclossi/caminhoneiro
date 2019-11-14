@@ -1,4 +1,4 @@
-// Package
+// Packages
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 // Pages
@@ -17,8 +17,6 @@ class _HomeAppState extends State<HomeApp> {
   List<Viagem> viagens = List();
   List<Categoria> categorias = List();
   List<Registro> registros = List();
-
-  List<Registro> selectedRegistros = List();
 
   @override
   void initState() {
