@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:async';
-// Pages
+// DataBase
 import 'package:caminhoneiro_app/sqlite/database.dart';
 import 'package:caminhoneiro_app/sqlite/suport_database.dart';
 
@@ -38,7 +38,6 @@ class _AddRegistroState extends State<AddRegistro> {
 
   String lastViagem;
   String lastCategoria;
-
 
   @override
   void initState() {

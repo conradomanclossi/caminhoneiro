@@ -52,7 +52,7 @@ class _StatusBarState extends State<StatusBar> {
             Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                padding: EdgeInsets.only(left: 30.0, top: 8.0),
+                padding: EdgeInsets.only(left: 20.0, top: 8.0),
                 child: Text(
                   "Total",
                   textScaleFactor: 1.0,
@@ -63,29 +63,30 @@ class _StatusBarState extends State<StatusBar> {
             ),
 
             /// TOTAL VALOR
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Row(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(left: 30.0, top: 10.0),
-                    child: Icon(
-                      Icons.poll,
-                      color: Colors.black54,
-                      size: 30.0,
+            Stack(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(left: 30.0, top: 10.0),
+                      child: Icon(
+                        Icons.poll,
+                        color: Colors.black54,
+                        size: 30.0,
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 5.0),
-                    child: Text(
-                      '$total',
-                      textScaleFactor: 3.0,
-                      style: TextStyle(
-                          color: Colors.black54, fontWeight: FontWeight.bold),
+                    Padding(
+                      padding: EdgeInsets.only(left: 5.0),
+                      child: Text(
+                        '$total',
+                        textScaleFactor: 3.0,
+                        style: TextStyle(
+                            color: Colors.black54, fontWeight: FontWeight.bold),
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+              ],
             ),
 
             /// Menores

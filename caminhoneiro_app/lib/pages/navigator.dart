@@ -89,7 +89,7 @@ class _AppNavigatorState extends State<AppNavigator> {
                 child: Icon(Icons.add),
               ),
               floatingActionButtonLocation:
-                  FloatingActionButtonLocation.endFloat,
+                  FloatingActionButtonLocation.centerDocked,
             ),
           ),
 

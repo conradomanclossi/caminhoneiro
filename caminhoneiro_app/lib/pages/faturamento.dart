@@ -193,57 +193,65 @@ class _FaturamentoState extends State<Faturamento> {
                   offset: Offset(0, 5),
                 )
               ]),
-          child: Row(
+          child: Stack(
             children: <Widget>[
               Align(
                 alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 20.0),
-                  child: Icon(
-                    Icons.monetization_on,
-                    color: Colors.white,
-                    size: 40.0,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 10.0),
-                child: FutureBuilder(
-                  future:
-                      helper.getCategoria(registros[index].categoriaId).then(
-                    (list) {
-                      return list.titulo;
-                    },
-                  ),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData)
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    return Text.rich(
-                      TextSpan(
-                        text: snapshot.data,
-                        style: TextStyle(
-                            color: Colors.black45,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10.0), // default text style
-                        children: <TextSpan>[
-                          TextSpan(
-                              text: '\n${registros[index].titulo}',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 25.0)),
-                        ],
+                child: Row(
+                  children: <Widget>[
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 20.0),
+                        child: Icon(
+                          Icons.monetization_on,
+                          color: Colors.white,
+                          size: 40.0,
+                        ),
                       ),
-                    );
-                  },
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10.0),
+                      child: FutureBuilder(
+                        future: helper
+                            .getCategoria(registros[index].categoriaId)
+                            .then(
+                          (list) {
+                            return list.titulo;
+                          },
+                        ),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData)
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          return Text.rich(
+                            TextSpan(
+                              text: snapshot.data,
+                              style: TextStyle(
+                                  color: Colors.black45,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 10.0),
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text: '\n${registros[index].titulo}',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 25.0)),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Align(
                 alignment: Alignment.centerRight,
                 child: Padding(
-                  padding: EdgeInsets.only(left: 80.0),
+                  padding: EdgeInsets.only(right: 20.0),
                   child: Text.rich(
                     TextSpan(
                       text: 'R\$',
