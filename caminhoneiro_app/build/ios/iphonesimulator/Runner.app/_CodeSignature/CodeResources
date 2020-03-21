@@ -130,7 +130,7 @@
 		</data>
 		<key>Frameworks/App.framework/App</key>
 		<data>
-		1XbM6yh3Xh0CYXzqNia39NMqMWk=
+		Vsy0+y1Cw6BfIRDMVG1DqxKQbIg=
 		</data>
 		<key>Frameworks/App.framework/Info.plist</key>
 		<data>
@@ -138,7 +138,7 @@
 		</data>
 		<key>Frameworks/App.framework/_CodeSignature/CodeResources</key>
 		<data>
-		6Iqrfw0tfWPOifdBg0X6LukjUnw=
+		pURFJOmBu5dVUZTAHMK+NzKdeHk=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
 		<data>
@@ -150,7 +150,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/LICENSE</key>
 		<data>
-		963zpa/AT6ANij4I2E1Xz2OaqbQ=
+		dPFlHjvtuI8dFDNYPiWqslTQXWc=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/fonts/MaterialIcons-Regular.ttf</key>
 		<data>
@@ -162,7 +162,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/kernel_blob.bin</key>
 		<data>
-		1ZHuFY+xdT/lmxZb4j9qSwmhhmQ=
+		ASFUGS/70EFFFGUdIvXagdggI94=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -174,7 +174,7 @@
 		</data>
 		<key>Frameworks/FMDB.framework/FMDB</key>
 		<data>
-		MfAf2vznx5ZVe3sdqhP1aOwv0wY=
+		PKwvq4uFtisAKNtzLRCq3LeYAx8=
 		</data>
 		<key>Frameworks/FMDB.framework/Info.plist</key>
 		<data>
@@ -199,6 +199,18 @@
 		<key>Frameworks/Flutter.framework/icudtl.dat</key>
 		<data>
 		z32dyLOVE4+TKehZcBQlHkxsxKQ=
+		</data>
+		<key>Frameworks/device_info.framework/Info.plist</key>
+		<data>
+		4sarkPEpJtwHP2Qq3teOE4aHvPI=
+		</data>
+		<key>Frameworks/device_info.framework/_CodeSignature/CodeResources</key>
+		<data>
+		NpN1fVhwEaUX6AnWaV68F33gehY=
+		</data>
+		<key>Frameworks/device_info.framework/device_info</key>
+		<data>
+		91ghVCOJJcq3jGec5/fvzyBbHFI=
 		</data>
 		<key>Frameworks/libswiftCore.dylib</key>
 		<data>
@@ -278,7 +290,7 @@
 		</data>
 		<key>Frameworks/sqflite.framework/sqflite</key>
 		<data>
-		biJ+8vEuRKsBxBqVt5B6bVUZ1yM=
+		+aXKD7QRuPDQRgWDhmlIBSw8s5E=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -516,7 +528,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			CV2xS1PUFsxpH0e+7cchgdneJACNXbaYUYHGajw6/dg=
+			KncnvGKAAcyHqZr2J4wQiwGZGWkBsMJpcUWilBVkMVE=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/Info.plist</key>
@@ -530,7 +542,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			T1CiIOusAELU5b4DCJkIRVy20AJRoqCNnLGAMERsh74=
+			IrAkKC3q2xJ1+hZUEfziXsE0wZXvHzNdpwXjZUCcLTE=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
@@ -551,7 +563,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			JJtWQk1RvCxot80Sa4q8IqQfeuZzj5nlHI+6DQJV6QY=
+			+bqjGbE/75SkF88S2sMxE29li1+iKJZt8OHiHUCtUGs=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/fonts/MaterialIcons-Regular.ttf</key>
@@ -572,7 +584,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			lnoQaGbsQTbioTblXWN1+qSidHlrH6emywdM1esAUEs=
+			ED8zgQf90erYh4EPcAutsfPxHMYRvX+5BFXqSOB7cAA=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
@@ -593,7 +605,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			LI2jkDmB43FiJNoQCEXfpPqODBdyfVM7ybvEt07//6w=
+			FY1/ALOPsI9bg75EhnNB7j6CH4Gx1bI4Oh61CIP0TZg=
 			</data>
 		</dict>
 		<key>Frameworks/FMDB.framework/Info.plist</key>
@@ -636,6 +648,27 @@
 			<key>hash2</key>
 			<data>
 			zdr5Vzvecp4snhYdlNG4xyqroPTCh6TeJWIkNMcEyTE=
+			</data>
+		</dict>
+		<key>Frameworks/device_info.framework/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			TAPLrxlzswM6/PHCz3WDP13uKCUa+xw1l1sotISSjbE=
+			</data>
+		</dict>
+		<key>Frameworks/device_info.framework/_CodeSignature/CodeResources</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			He7lEy55xj8WN7U2lQLHLdHJk9Tk+DnDMFykDXR6nrU=
+			</data>
+		</dict>
+		<key>Frameworks/device_info.framework/device_info</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			sPQ5FWPZAFp/CW6q+UZhnXxLyiVNI+LMcAFeJC+bHvQ=
 			</data>
 		</dict>
 		<key>Frameworks/libswiftCore.dylib</key>
@@ -775,7 +808,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Uhfx/QfErRyOefqTRN4r5cbCdt+38dUr2urUmHQTmP4=
+			PvgbTaG/3qNaEDia8R6DPHa4/5tRx6Y/OoITALobx8s=
 			</data>
 		</dict>
 		<key>libswiftRemoteMirror.dylib</key>
