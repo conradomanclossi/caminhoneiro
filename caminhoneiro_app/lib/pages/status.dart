@@ -41,7 +41,7 @@ class _StatusBarState extends State<StatusBar> {
                 spreadRadius: 5.0,
                 offset: Offset(0, 5))
           ]),
-      child: GestureDetector(
+      /* child: GestureDetector(
         onTap: () {
           print("It's Work");
         },
@@ -154,7 +154,7 @@ class _StatusBarState extends State<StatusBar> {
             )
           ],
         ),
-      ),
+      ), */
     );
   }
 }

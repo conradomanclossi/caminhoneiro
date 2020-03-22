@@ -19,14 +19,14 @@ mixin _$HomeController on _HomeControllerBase, Store {
   final _$viagensAtom = Atom(name: '_HomeControllerBase.viagens');
 
   @override
-  List<Viagem> get viagens {
+  ObservableList<Viagem> get viagens {
     _$viagensAtom.context.enforceReadPolicy(_$viagensAtom);
     _$viagensAtom.reportObserved();
     return super.viagens;
   }
 
   @override
-  set viagens(List<Viagem> value) {
+  set viagens(ObservableList<Viagem> value) {
     _$viagensAtom.context.conditionallyRunInAction(() {
       super.viagens = value;
       _$viagensAtom.reportChanged();

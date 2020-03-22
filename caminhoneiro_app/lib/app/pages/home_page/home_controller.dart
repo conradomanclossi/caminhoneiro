@@ -1,9 +1,7 @@
-import 'package:caminhoneiro_app/controllers/database_controller.dart';
 import 'package:caminhoneiro_app/sqlite/database.dart';
 import 'package:caminhoneiro_app/sqlite/suport_database.dart';
 import 'package:mobx/mobx.dart';
 
-import 'components/item_model.dart';
 part 'home_controller.g.dart';
 
 DatabaseHelper helper = DatabaseHelper();
@@ -19,7 +17,7 @@ abstract class _HomeControllerBase with Store {
   ].asObservable(); */
 
   @observable
-  List<Viagem> viagens = List();
+  ObservableList<Viagem> viagens = List();
 
   /* @computed
   int get totalChecked => listItem.where((item) => item.check).length; */

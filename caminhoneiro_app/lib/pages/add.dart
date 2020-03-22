@@ -1,4 +1,5 @@
 // Packages
+import 'package:caminhoneiro_app/sqlite/controller/database_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
@@ -135,6 +136,8 @@ showAdd(BuildContext context) {
 
 /// Viagem Add
 viagemAdd(BuildContext context) {
+  DataBase database = DataBase();
+
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -239,7 +242,7 @@ viagemAdd(BuildContext context) {
                             onPressed: () {
                               Viagem v = Viagem();
                               v.saida = '${dateSave.format(date).toString()}';
-                              helper.saveViagem(v);
+                              database.saveViagem(v);
                               Navigator.pop(context);
                             },
                             child: const Text('Salvar',

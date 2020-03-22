@@ -32,13 +32,13 @@ abstract class _DataBaseBase with Store {
       registros = list;
     });
   }
-
+ 
   @action
   Future<void> loadViagens() async {
     await helper.getAllViagens().then((list) {
       viagens = list;
     });
-  }
+  } 
 
   @action
   Future<void> loadCategorias() async {
@@ -58,56 +58,57 @@ abstract class _DataBaseBase with Store {
   @action 
   saveViagem(Viagem value) {
     helper.saveViagem(value);
-    loadViagens();
+    loadDataBase();
   }
 
   @action
   updateViagem(Viagem value) {
     helper.updateViagem(value);
-    loadViagens();
+    loadDataBase();
   }
 
   @action
   deleteViagem(int id) {
     helper.deleteViagem(id);
-    loadViagens();
+    loadDataBase();
   }
 
   // Categoria Action
   @action 
   saveCategoria(Categoria value) {
     helper.saveCategoria(value);
-    loadCategorias();
+    loadDataBase();
   }
 
   @action
   updateCategoria(Categoria value) {
     helper.updateCategoria(value);
-    loadCategorias();
+    loadDataBase();
   }
 
   @action
   deleteCategoria(int id) {
     helper.deleteCategoria(id);
-    loadCategorias();
+    loadDataBase();
   }
 
   // Registro Action
   @action 
   saveRegistro(Registro value) {
     helper.saveRegistro(value);
-    loadRegistros();
+    loadDataBase();
   }
 
   @action
   updateRegistro(Registro value) {
     helper.updateRegistro(value);
-    loadRegistros();
+    loadDataBase();
   }
 
   @action
   deleteRegistro(int id) {
     helper.deleteRegistro(id);
-    loadRegistros();
+    loadDataBase();
   }
 }
+

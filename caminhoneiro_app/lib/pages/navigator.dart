@@ -6,7 +6,7 @@ import 'package:caminhoneiro_app/pages/categorias.dart';
 import 'package:caminhoneiro_app/pages/status.dart';
 import 'package:caminhoneiro_app/pages/home.dart';
 import 'package:caminhoneiro_app/pages/faturamento.dart';
-import 'package:caminhoneiro_app/pages/pessoal.dart';
+//import 'package:caminhoneiro_app/pages/pessoal.dart';
 import 'package:caminhoneiro_app/pages/add.dart';
 
 /// Dependecies
@@ -34,7 +34,7 @@ class _AppNavigatorState extends State<AppNavigator> {
     Categorias(),
 
     /// Link page Pessoal
-    Pessoal()
+    //Pessoal()
   ];
 
   /// Index Selector
