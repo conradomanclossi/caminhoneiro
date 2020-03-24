@@ -133,7 +133,7 @@ class _AddRegistroState extends State<AddRegistro> {
                               .map<DropdownMenuItem<Viagem>>((Viagem viagem) {
                             return DropdownMenuItem<Viagem>(
                               value: viagem,
-                              child: Text(viagem.saida),
+                              child: Text(viagem.saida.toString()),
                             );
                           }).toList(),
                           onChanged: (viagem) {
@@ -153,7 +153,7 @@ class _AddRegistroState extends State<AddRegistro> {
                             .map<DropdownMenuItem<Viagem>>((Viagem viagem) {
                           return DropdownMenuItem<Viagem>(
                             value: viagem,
-                            child: Text(viagem.saida),
+                            child: Text(viagem.saida.toString()),
                           );
                         }).toList(),
                         onChanged: (viagem) {

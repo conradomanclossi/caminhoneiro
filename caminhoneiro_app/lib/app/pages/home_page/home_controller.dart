@@ -58,7 +58,7 @@ abstract class _HomeControllerBase with Store {
     if (filter.isEmpty) {
       return viagens;
     } else {
-      return viagens.where((item) => item.saida.contains(filter.toLowerCase())).toList();
+      return viagens.where((item) => item.saida.toString().contains(filter.toLowerCase())).toList();
     }
   }
 

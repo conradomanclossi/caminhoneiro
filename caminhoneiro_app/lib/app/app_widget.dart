@@ -1,6 +1,4 @@
 // Packages
-import 'package:caminhoneiro_app/app/pages/home_page/home_page.dart';
-import 'package:caminhoneiro_app/app/pages/home_page/old.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 // Pages
@@ -15,12 +13,9 @@ class _AppWidgetState extends State<AppWidget> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: "Caminhoneiro App",
-        theme: ThemeData(primarySwatch: Colors.lightGreen),
-        initialRoute: '/',
-        routes: {
-          '/': (context) => NavigatorApp(),
-          '/second': (context) => HomePage()
-        });
+      title: "Caminhoneiro App",
+      theme: ThemeData(primarySwatch: Colors.lightGreen),
+      home: NavigatorApp(),
+    );
   }
 }

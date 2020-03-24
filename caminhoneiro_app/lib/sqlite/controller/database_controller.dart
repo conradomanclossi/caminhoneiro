@@ -1,8 +1,8 @@
 // Packages
 import 'package:mobx/mobx.dart';
 // DataBase
-import 'package:caminhoneiro_app/sqlite/database.dart';
-import 'package:caminhoneiro_app/sqlite/suport_database.dart';
+import '../database.dart';
+import '../suport_database.dart';
 // MobX Part
 part 'database_controller.g.dart';
 
@@ -21,24 +21,11 @@ abstract class _DataBaseBase with Store {
   List<Registro> registros = List();
 
   @action
-  Future<void> loadDataBase() async {
-    await helper.getAllViagens().then((list) {
-      viagens = list;
-    });
-    await helper.getAllCategorias().then((list) {
-      categorias = list;
-    });
-    await helper.getAllRegistros().then((list) {
-      registros = list;
-    });
-  }
- 
-  @action
   Future<void> loadViagens() async {
     await helper.getAllViagens().then((list) {
       viagens = list;
     });
-  } 
+  }
 
   @action
   Future<void> loadCategorias() async {
@@ -54,8 +41,15 @@ abstract class _DataBaseBase with Store {
     });
   }
 
+  @action
+  Future<void> loadDataBase() async {
+    loadViagens();
+    loadCategorias();
+    loadRegistros();
+  }
+
   // Viagem Action
-  @action 
+  @action
   saveViagem(Viagem value) {
     helper.saveViagem(value);
     loadDataBase();
@@ -74,7 +68,7 @@ abstract class _DataBaseBase with Store {
   }
 
   // Categoria Action
-  @action 
+  @action
   saveCategoria(Categoria value) {
     helper.saveCategoria(value);
     loadDataBase();
@@ -93,7 +87,7 @@ abstract class _DataBaseBase with Store {
   }
 
   // Registro Action
-  @action 
+  @action
   saveRegistro(Registro value) {
     helper.saveRegistro(value);
     loadDataBase();
@@ -111,4 +105,3 @@ abstract class _DataBaseBase with Store {
     loadDataBase();
   }
 }
-

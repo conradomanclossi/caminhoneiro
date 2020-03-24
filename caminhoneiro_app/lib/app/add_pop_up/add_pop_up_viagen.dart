@@ -1,16 +1,18 @@
 // Packages
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 // DataBase
 import 'package:caminhoneiro_app/sqlite/controller/database_controller.dart';
-// Pages
 import 'package:caminhoneiro_app/sqlite/suport_database.dart';
-import 'package:provider/provider.dart';
+// Elements
+import 'package:caminhoneiro_app/app/elements/principal_element.dart';
 
 DateTime date = DateTime.now();
 DateFormat dateFormat = DateFormat('dd/MM/yyyy');
 DateFormat dateSave = DateFormat('yyyy-MM-dd');
+DateTime _dateTime;
 
 /// Viagem Add
 viagemAdd(BuildContext context) {
@@ -28,19 +30,6 @@ class AddViagem extends StatelessWidget {
     final database = Provider.of<DataBase>(context);
 
     return StatefulBuilder(builder: (context, setState) {
-      Future<Null> selectDate(BuildContext context) async {
-        final DateTime picked = await showDatePicker(
-            context: context,
-            initialDate: date,
-            firstDate: DateTime(2019),
-            lastDate: DateTime(2020));
-        if (picked != null && picked != date) {
-          setState(() {
-            date = picked;
-          });
-        }
-      }
-
       return Container(
         margin:
             EdgeInsets.only(top: 265.0, bottom: 265.0, left: 20.0, right: 20.0),
@@ -75,28 +64,20 @@ class AddViagem extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        selectDate(context);
+                        showDatePicker(
+                                context: context,
+                                initialDate: _dateTime == null
+                                    ? DateTime.now()
+                                    : _dateTime,
+                                firstDate: DateTime(2001),
+                                lastDate: DateTime(2021))
+                            .then((date) {
+                          setState(() {
+                            _dateTime = date;
+                          });
+                        });
                       },
-                      child: Container(
-                        height: 60.0,
-                        margin: EdgeInsets.all(20.0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50.0),
-                          gradient: RadialGradient(
-                            radius: 10,
-                            colors: [
-                              Colors.lightGreen[400],
-                              Colors.lightGreen[600],
-                            ],
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.lightGreen[200],
-                                blurRadius: 10.0,
-                                spreadRadius: 5.0,
-                                offset: Offset(0, 10))
-                          ],
-                        ),
+                      child: PrincipalElement(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
@@ -108,7 +89,10 @@ class AddViagem extends StatelessWidget {
                             Padding(
                               padding: EdgeInsets.only(left: 10.0),
                               child: Text(
-                                dateFormat.format(date).toString(),
+                                dateFormat
+                                    .format(
+                                        _dateTime == null ? date : _dateTime)
+                                    .toString(),
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -126,7 +110,9 @@ class AddViagem extends StatelessWidget {
                         color: Colors.lightGreen,
                         onPressed: () async {
                           Viagem v = Viagem();
-                          v.saida = '${dateSave.format(date).toString()}';
+                          v.saida = _dateTime != null
+                              ? _dateTime.toString()
+                              : date.toString();
                           database.saveViagem(v);
                           Navigator.pop(context);
                         },

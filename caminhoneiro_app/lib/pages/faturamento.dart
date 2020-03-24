@@ -103,10 +103,7 @@ class _FaturamentoState extends State<Faturamento> {
                                   color: Colors.white,
                                 ),
                               ),
-                              Text(
-                                  dateFormat
-                                      .format(DateTime.parse(viagem.saida))
-                                      .toString(),
+                              Text(dateFormat.format(DateTime.parse(viagem.saida)).toString(),
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,

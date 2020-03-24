@@ -241,7 +241,7 @@ viagemAdd(BuildContext context) {
                             color: Colors.lightGreen,
                             onPressed: () {
                               Viagem v = Viagem();
-                              v.saida = '${dateSave.format(date).toString()}';
+                              v.saida = date.toString();
                               database.saveViagem(v);
                               Navigator.pop(context);
                             },

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class ItemViagem extends StatelessWidget {
-  final Viagem item;
+  final Categoria item;
   final Function removeClicked;
 
   const ItemViagem({Key key, this.item, this.removeClicked}) : super(key: key);
@@ -12,7 +12,7 @@ class ItemViagem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       return ListTile(
-        title: Text(item.saida),
+        title: Text("Id: ${item.toString()}"),
         trailing: IconButton(
           color: Colors.red,
           icon: Icon(Icons.remove_circle),

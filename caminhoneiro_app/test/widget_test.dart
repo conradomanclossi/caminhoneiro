@@ -28,23 +28,3 @@ void main() {
     expect(find.text('1'), findsOneWidget);
   });
 }
-
-
-/* Padding(
-          padding: EdgeInsets.only(top: 80.0, left: 40.0),
-          child: DropdownButton<Viagem>(
-            hint: Text(viagens.last.saida.toString()),
-            items: viagens.map<DropdownMenuItem<Viagem>>((Viagem viagem) {
-              return DropdownMenuItem<Viagem>(
-                value: viagem,
-                child: Text(viagem.saida),
-              );
-            }).toList(),
-            onChanged: (viagem) {
-              setState(() {
-                _selectedViagem = viagem;
-              });
-            },
-            value: _selectedViagem,
-          ),
-        ), */
