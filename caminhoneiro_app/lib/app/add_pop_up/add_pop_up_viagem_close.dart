@@ -33,7 +33,7 @@ class AddViagem extends StatelessWidget {
     return StatefulBuilder(builder: (context, setState) {
       return Container(
         margin:
-            EdgeInsets.only(top: 215.0, bottom: 215.0, left: 20.0, right: 20.0),
+            EdgeInsets.only(top: 210.0, bottom: 210.0, left: 20.0, right: 20.0),
         child: Scaffold(
           backgroundColor: Color(0xFFFFFF),
           body: ClipRRect(
@@ -43,18 +43,28 @@ class AddViagem extends StatelessWidget {
               child: Center(
                 child: Column(
                   children: <Widget>[
-                    // Encerrar uma viagem
-                    Container(
-                      margin: EdgeInsets.only(top: 20.0),
+                    // Encerrar uma viagem (Title)
+                    Padding(
+                        padding: EdgeInsets.only(top: 20.0),
+                        child: Text(
+                          'Encerrar uma viagem',
+                          style: TextStyle(
+                              color: Colors.black45,
+                              fontSize: 25.0,
+                              fontWeight: FontWeight.bold),
+                        )),
+                    // Data de saída (Text)
+                    Padding(
+                      padding: EdgeInsets.only(top: 20.0),
                       child: Text(
-                        'Encerrar uma viagem',
+                        'Data de Saída',
                         style: TextStyle(
-                            color: Colors.black45,
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.bold),
+                          color: Colors.black45,
+                          fontSize: 20.0,
+                        ),
                       ),
                     ),
-                    // Data de saída
+                    // Data de saída (Selector list)
                     PrincipalElement(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -101,19 +111,19 @@ class AddViagem extends StatelessWidget {
                         ],
                       ),
                     ),
-                    // Data de chegada
-                    Container(
-                      margin: EdgeInsets.only(top: 20.0),
+                    // Data de chegada (Text)
+                    Padding(
+                      padding: EdgeInsets.only(top: 20.0),
                       child: Text(
                         'Data de Chegada',
                         style: TextStyle(
                           color: Colors.black45,
-                          fontSize: 25.0,
+                          fontSize: 20.0,
                         ),
                       ),
                     ),
-                    // Selector de chegada
-                    GestureDetector(
+                    // Selector de chegada (Date picker)
+                    PrincipalElement(
                       onTap: () {
                         showDatePicker(
                                 context: context,
@@ -128,38 +138,37 @@ class AddViagem extends StatelessWidget {
                           });
                         });
                       },
-                      child: PrincipalElement(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(
-                              Icons.calendar_today,
-                              color: Colors.white,
-                              size: 30.0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.calendar_today,
+                            color: Colors.white,
+                            size: 30.0,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 10.0),
+                            child: Text(
+                              dateFormat
+                                  .format(_dateTime == null ? date : _dateTime)
+                                  .toString(),
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 10.0),
-                              child: Text(
-                                dateFormat
-                                    .format(
-                                        _dateTime == null ? date : _dateTime)
-                                    .toString(),
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                            )
-                          ],
-                        ),
+                          )
+                        ],
                       ),
                     ),
-                    // Botão salvar
-                    Container(
-                      margin: EdgeInsets.only(
-                          top: 10.0, bottom: 30.0, left: 20.0, right: 20.0),
+                    // Salvar (Botão)
+                    Padding(
+                      padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                       child: RaisedButton(
+                        splashColor: Colors.green,
                         color: Colors.lightGreen,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50)),
                         onPressed: () async {
                           dropdownValue.chegada = _dateTime != null
                               ? _dateTime.toString()

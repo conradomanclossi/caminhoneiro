@@ -4,18 +4,10 @@ import 'package:caminhoneiro_app/sqlite/controller/database_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
 // Pages
-import 'package:caminhoneiro_app/sqlite/database.dart';
 import 'package:caminhoneiro_app/sqlite/suport_database.dart';
 
-DateTime date = DateTime.now();
-DateFormat dateFormat = DateFormat('dd/MM/yyyy');
-DateFormat dateSave = DateFormat('yyyy-MM-dd');
-
 String dropdownValue = 'Faturamento';
-
-DatabaseHelper helper = DatabaseHelper();
 
 /// Categoria Add
 categoriaAdd(BuildContext context) {
@@ -28,20 +20,18 @@ categoriaAdd(BuildContext context) {
 }
 
 class AddCategoria extends StatelessWidget {
-  Categoria c = Categoria();
-
   @override
   Widget build(BuildContext context) {
     final database = Provider.of<DataBase>(context);
-
+    Categoria c = Categoria();
     return StatefulBuilder(
       builder: (context, setState) {
         return Container(
           margin: dropdownValue == 'Custo'
               ? EdgeInsets.only(
-                  top: 205.0, bottom: 205.0, left: 20.0, right: 20.0)
+                  top: 225.0, bottom: 225.0, left: 20.0, right: 20.0)
               : EdgeInsets.only(
-                  top: 165.0, bottom: 165.0, left: 20.0, right: 20.0),
+                  top: 195.0, bottom: 195.0, left: 20.0, right: 20.0),
           child: Scaffold(
             backgroundColor: Color(0xFFFFFF),
             body: ClipRRect(
@@ -51,9 +41,9 @@ class AddCategoria extends StatelessWidget {
                 child: Center(
                   child: Column(
                     children: <Widget>[
-                      /// Adicionar Categoria
-                      Container(
-                        margin: EdgeInsets.only(top: 20.0),
+                      // Adicionar Categoria (Text)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
                         child: Text(
                           'Adicionar Categoria',
                           style: TextStyle(
@@ -62,20 +52,18 @@ class AddCategoria extends StatelessWidget {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-
-                      /// Tipo
-                      Container(
-                        margin: EdgeInsets.only(top: 20.0),
+                      // Tipo (Text)
+                      Padding(
+                        padding: EdgeInsets.only(top: 20.0),
                         child: Text(
                           'Tipo',
                           style: TextStyle(
                             color: Colors.black45,
-                            fontSize: 25.0,
+                            fontSize: 20.0,
                           ),
                         ),
                       ),
-
-                      /// Tipo Selector
+                      // Tipo (Selector)
                       PrincipalElement(
                         child: Center(
                           child: Theme(
@@ -113,9 +101,10 @@ class AddCategoria extends StatelessWidget {
                         ),
                       ),
 
-                      /// Título título
+                      /// Título (Text Field)
                       Padding(
-                        padding: const EdgeInsets.all(20.0),
+                        padding: const EdgeInsets.only(
+                            top: 20.0, left: 20, right: 20),
                         child: TextField(
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
@@ -127,11 +116,12 @@ class AddCategoria extends StatelessWidget {
                         ),
                       ),
 
-                      /// Comissão título
+                      /// Comissão (Text Field)
                       dropdownValue == 'Custo'
                           ? Text('')
                           : Padding(
-                              padding: const EdgeInsets.all(20.0),
+                              padding: const EdgeInsets.only(
+                                  top: 20.0, left: 20.0, right: 20.0),
                               child: TextField(
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(),
@@ -144,12 +134,15 @@ class AddCategoria extends StatelessWidget {
                               ),
                             ),
 
-                      /// Salvar
-                      Container(
-                        margin: EdgeInsets.only(
-                            top: 10.0, bottom: 30.0, left: 20.0, right: 20.0),
+                      /// Salvar (Botão)
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: 20.0, bottom: 20.0, left: 20.0, right: 20.0),
                         child: RaisedButton(
+                          splashColor: Colors.green,
                           color: Colors.lightGreen,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)),
                           onPressed: () {
                             c.tipo = dropdownValue;
                             database.saveCategoria(c);

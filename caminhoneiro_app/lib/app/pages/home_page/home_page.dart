@@ -1,4 +1,5 @@
 // Packages
+import 'package:caminhoneiro_app/app/elements/principal_element.dart';
 import 'package:caminhoneiro_app/app/pages/home_page/components/item_widget.dart';
 import 'package:caminhoneiro_app/app/pages/home_page/components/register_card.dart';
 import 'package:caminhoneiro_app/sqlite/controller/database_controller.dart';
@@ -13,6 +14,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  double sideLength = 50;
   @override
   Widget build(BuildContext context) {
     final database = Provider.of<DataBase>(context);
@@ -29,14 +31,11 @@ class _HomePageState extends State<HomePage> {
         builder: (context, snapshot) {
           return Observer(builder: (_) {
             return ListView.builder(
-                itemCount: database.categorias.length,
+                itemCount: database.registros.length,
                 itemBuilder: (_, index) {
-                  var item = database.categorias[index];
-                  return ItemViagem(
-                    item: item,
-                    removeClicked: () {
-                      database.deleteCategoria(item.id);
-                    },
+                  var item = database.registros[index];
+                  return PrincipalElement(
+                    child: Text("${item}"),
                   );
                 });
           });
