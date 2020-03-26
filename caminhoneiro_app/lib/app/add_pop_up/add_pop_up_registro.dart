@@ -9,24 +9,46 @@ import 'package:caminhoneiro_app/sqlite/controller/database_controller.dart';
 // Element
 import 'package:caminhoneiro_app/app/elements/principal_element.dart';
 
-
 // Registro Add
-registroAdd(BuildContext context) {
+registroAdd(BuildContext context, {Registro registro}) {
   showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AddRegistro();
+        return AddRegistro(
+          registro: registro,
+        );
       });
 }
 
 class AddRegistro extends StatelessWidget {
+  final Registro registro;
+
+  AddRegistro({this.registro});
+
   @override
   Widget build(BuildContext context) {
     final database = Provider.of<DataBase>(context);
-    Registro registro = Registro();
-    Viagem viagem = database.viagens.last;
-    Categoria categoria = database.categorias.last;
-    DateTime date = DateTime.now();
+    Registro _editedRegistro;
+    Viagem viagem;
+    Categoria categoria;
+    DateTime date;
+    final _tituloController = TextEditingController();
+    final _valorController = TextEditingController();
+
+    if (registro != null) {
+      _editedRegistro = registro;
+      viagem = database.getViagem(registro.viagemId);
+      categoria = database.getCategoria(registro.categoriaId);
+      _tituloController.text = registro.titulo;
+      _valorController.text = registro.valor.toString();
+      date = DateTime.parse(registro.date);
+    } else {
+      _editedRegistro = Registro();
+      viagem = database.viagens.last;
+      categoria = database.categorias.last;
+      date = DateTime.now();
+    }
+
     DateFormat dateFormat = DateFormat('dd/MM/yyyy');
     DateTime _dateTime;
 
@@ -166,11 +188,11 @@ class AddRegistro extends StatelessWidget {
                           ],
                         ),
                       ),
-                      // Data de chegada (Text)
+                      // Data (Text)
                       Padding(
                         padding: EdgeInsets.only(top: 20.0),
                         child: Text(
-                          'Data de Chegada',
+                          'Data',
                           style: TextStyle(
                             color: Colors.black45,
                             fontSize: 20.0,
@@ -233,11 +255,12 @@ class AddRegistro extends StatelessWidget {
                         padding: const EdgeInsets.only(
                             top: 20.0, left: 20.0, right: 20.0),
                         child: TextField(
+                          controller: _tituloController,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: "Título"),
                           onChanged: (text) {
-                            registro.titulo = text;
+                            _editedRegistro.titulo = text;
                           },
                         ),
                       ),
@@ -257,10 +280,13 @@ class AddRegistro extends StatelessWidget {
                         padding: const EdgeInsets.only(
                             top: 20.0, left: 20.0, right: 20.0),
                         child: TextField(
+                          controller: _valorController,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(), labelText: "Valor"),
+                          keyboardType:
+                              TextInputType.numberWithOptions(decimal: true),
                           onChanged: (text) {
-                            registro.valor = double.parse(text);
+                            _editedRegistro.valor = double.parse(text);
                           },
                         ),
                       ),
@@ -275,12 +301,14 @@ class AddRegistro extends StatelessWidget {
                             borderRadius: BorderRadius.circular(50),
                           ),
                           onPressed: () async {
-                            registro.viagemId = viagem.id;
-                            registro.categoriaId = categoria.id;
-                            registro.date = _dateTime != null
+                            _editedRegistro.viagemId = viagem.id;
+                            _editedRegistro.categoriaId = categoria.id;
+                            _editedRegistro.date = _dateTime != null
                                 ? _dateTime.toString()
                                 : date.toString();
-                            database.saveRegistro(registro);
+                            _editedRegistro.id != null
+                                ? database.updateRegistro(_editedRegistro)
+                                : database.saveRegistro(_editedRegistro);
                             Navigator.pop(context);
                           },
                           child: const Text('Salvar',

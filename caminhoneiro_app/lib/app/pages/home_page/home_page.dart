@@ -1,8 +1,10 @@
 // Packages
 import 'package:caminhoneiro_app/app/elements/principal_element.dart';
+import 'package:caminhoneiro_app/app/pages/home_page/components/home_item.dart';
 import 'package:caminhoneiro_app/app/pages/home_page/components/item_widget.dart';
 import 'package:caminhoneiro_app/app/pages/home_page/components/register_card.dart';
 import 'package:caminhoneiro_app/sqlite/controller/database_controller.dart';
+import 'package:caminhoneiro_app/sqlite/suport_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -26,6 +28,7 @@ class _HomePageState extends State<HomePage> {
             topLeft: Radius.circular(50),
             topRight: Radius.circular(50),
           )),
+          // TODO: make a list filtered
       child: FutureBuilder(
         future: database.loadDataBase(),
         builder: (context, snapshot) {
@@ -33,9 +36,9 @@ class _HomePageState extends State<HomePage> {
             return ListView.builder(
                 itemCount: database.registros.length,
                 itemBuilder: (_, index) {
-                  var item = database.registros[index];
-                  return PrincipalElement(
-                    child: Text("${item}"),
+                  Registro item = database.registros[index];
+                  return ItemHome(
+                    registro: item,
                   );
                 });
           });

@@ -60,13 +60,6 @@ mixin _$DataBase on _DataBaseBase, Store {
     }, _$registrosAtom, name: '${_$registrosAtom.name}_set');
   }
 
-  final _$loadDataBaseAsyncAction = AsyncAction('loadDataBase');
-
-  @override
-  Future<void> loadDataBase() {
-    return _$loadDataBaseAsyncAction.run(() => super.loadDataBase());
-  }
-
   final _$loadViagensAsyncAction = AsyncAction('loadViagens');
 
   @override
@@ -86,6 +79,13 @@ mixin _$DataBase on _DataBaseBase, Store {
   @override
   Future<void> loadRegistros() {
     return _$loadRegistrosAsyncAction.run(() => super.loadRegistros());
+  }
+
+  final _$loadDataBaseAsyncAction = AsyncAction('loadDataBase');
+
+  @override
+  Future<void> loadDataBase() {
+    return _$loadDataBaseAsyncAction.run(() => super.loadDataBase());
   }
 
   final _$_DataBaseBaseActionController =
@@ -122,6 +122,16 @@ mixin _$DataBase on _DataBaseBase, Store {
   }
 
   @override
+  dynamic getViagem(int id) {
+    final _$actionInfo = _$_DataBaseBaseActionController.startAction();
+    try {
+      return super.getViagem(id);
+    } finally {
+      _$_DataBaseBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic saveCategoria(Categoria value) {
     final _$actionInfo = _$_DataBaseBaseActionController.startAction();
     try {
@@ -152,6 +162,16 @@ mixin _$DataBase on _DataBaseBase, Store {
   }
 
   @override
+  dynamic getCategoria(int id) {
+    final _$actionInfo = _$_DataBaseBaseActionController.startAction();
+    try {
+      return super.getCategoria(id);
+    } finally {
+      _$_DataBaseBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic saveRegistro(Registro value) {
     final _$actionInfo = _$_DataBaseBaseActionController.startAction();
     try {
@@ -176,6 +196,16 @@ mixin _$DataBase on _DataBaseBase, Store {
     final _$actionInfo = _$_DataBaseBaseActionController.startAction();
     try {
       return super.deleteRegistro(id);
+    } finally {
+      _$_DataBaseBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic getRegistro(int id) {
+    final _$actionInfo = _$_DataBaseBaseActionController.startAction();
+    try {
+      return super.getRegistro(id);
     } finally {
       _$_DataBaseBaseActionController.endAction(_$actionInfo);
     }

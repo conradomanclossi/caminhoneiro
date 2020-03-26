@@ -67,6 +67,17 @@ abstract class _DataBaseBase with Store {
     loadDataBase();
   }
 
+  @action
+  getViagem(int id) {
+    Viagem _item;
+    viagens.forEach((element) {
+      if (element.id == id) {
+        _item = element;
+      }
+    });
+    return _item;
+  }
+
   // Categoria Action
   @action
   saveCategoria(Categoria value) {
@@ -86,6 +97,17 @@ abstract class _DataBaseBase with Store {
     loadDataBase();
   }
 
+  @action
+  getCategoria(int id) {
+    Categoria _item;
+    categorias.forEach((element) {
+      if (element.id == id) {
+        _item = element;
+      }
+    });
+    return _item;
+  }
+
   // Registro Action
   @action
   saveRegistro(Registro value) {
@@ -103,5 +125,16 @@ abstract class _DataBaseBase with Store {
   deleteRegistro(int id) {
     helper.deleteRegistro(id);
     loadDataBase();
+  }
+
+  @action
+  getRegistro(int id) {
+    Registro _item;
+    registros.forEach((element) {
+      if (element.id == id) {
+        _item = element;
+      }
+    });
+    return _item;
   }
 }
