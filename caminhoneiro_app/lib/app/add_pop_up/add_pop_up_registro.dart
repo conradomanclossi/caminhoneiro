@@ -20,11 +20,16 @@ registroAdd(BuildContext context, {Registro registro}) {
       });
 }
 
-class AddRegistro extends StatelessWidget {
+class AddRegistro extends StatefulWidget {
   final Registro registro;
 
   AddRegistro({this.registro});
 
+  @override
+  _AddRegistroState createState() => _AddRegistroState();
+}
+
+class _AddRegistroState extends State<AddRegistro> {
   @override
   Widget build(BuildContext context) {
     final database = Provider.of<DataBase>(context);
@@ -34,24 +39,23 @@ class AddRegistro extends StatelessWidget {
     DateTime date;
     final _tituloController = TextEditingController();
     final _valorController = TextEditingController();
+    DateFormat dateFormat = DateFormat('dd/MM/yyyy');
+    DateTime _dateTime;
 
-    if (registro != null) {
-      _editedRegistro = registro;
-      viagem = database.getViagem(registro.viagemId);
-      categoria = database.getCategoria(registro.categoriaId);
-      _tituloController.text = registro.titulo;
-      _valorController.text = registro.valor.toString();
-      date = DateTime.parse(registro.date);
+    if (widget.registro != null) {
+      _editedRegistro = widget.registro;
+      viagem = database.getViagem(widget.registro.viagemId);
+      categoria = database.getCategoria(widget.registro.categoriaId);
+      _tituloController.text = widget.registro.titulo;
+      _valorController.text = widget.registro.valor.toString();
+      date = DateTime.parse(widget.registro.date);
     } else {
       _editedRegistro = Registro();
       viagem = database.viagens.last;
       categoria = database.categorias.last;
       date = DateTime.now();
     }
-
-    DateFormat dateFormat = DateFormat('dd/MM/yyyy');
-    DateTime _dateTime;
-
+    
     return StatefulBuilder(builder: (context, setState) {
       return Container(
         margin: EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
@@ -66,29 +70,23 @@ class AddRegistro extends StatelessWidget {
                     children: <Widget>[
                       // Adicionar registro (Title)
                       Padding(
-                        padding: EdgeInsets.only(top: 20.0),
-                        child: Text("Adicionar um registro",
-                            style: TextStyle(
-                                color: Colors.black45,
-                                fontSize: 25.0,
-                                fontWeight: FontWeight.bold)),
-                      ),
+                          padding: EdgeInsets.only(top: 20.0),
+                          child: Text("Adicionar um registro",
+                              style: TextStyle(
+                                  color: Colors.black45,
+                                  fontSize: 25.0,
+                                  fontWeight: FontWeight.bold))),
                       // Viagem (Text)
                       Padding(
-                        padding: EdgeInsets.only(top: 20),
-                        child: Text(
-                          "Viagem",
-                          style: TextStyle(
-                            color: Colors.black45,
-                            fontSize: 20.0,
-                          ),
-                        ),
-                      ),
+                          padding: EdgeInsets.only(top: 20),
+                          child: Text("Viagem",
+                              style: TextStyle(
+                                  color: Colors.black45, fontSize: 20.0))),
                       // Viagem (Selector list)
                       PrincipalElement(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
                             Icon(
                               Icons.calendar_today,
                               color: Colors.white,
@@ -97,41 +95,38 @@ class AddRegistro extends StatelessWidget {
                             Padding(
                                 padding: EdgeInsets.only(left: 10.0),
                                 child: Theme(
-                                  data: Theme.of(context)
-                                      .copyWith(canvasColor: Colors.lightGreen),
-                                  child: DropdownButton<Viagem>(
-                                    underline: SizedBox(),
-                                    iconSize: 0,
-                                    value: viagem,
-                                    icon: Icon(Icons.arrow_downward),
-                                    elevation: 16,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        viagem = value;
-                                      });
-                                    },
-                                    items: database.viagens
-                                        .map<DropdownMenuItem<Viagem>>(
-                                            (Viagem value) {
-                                      return DropdownMenuItem<Viagem>(
-                                        value: value,
-                                        child: Text(
-                                          dateFormat
-                                              .format(
-                                                  DateTime.parse(value.saida))
-                                              .toString(),
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 22),
-                                        ),
-                                      );
-                                    }).toList(),
-                                  ),
-                                ))
-                          ],
-                        ),
-                      ),
+                                    data: Theme.of(context).copyWith(
+                                        canvasColor: Colors.lightGreen),
+                                    child: DropdownButton<Viagem>(
+                                        underline: SizedBox(),
+                                        iconSize: 0,
+                                        value: viagem,
+                                        icon: Icon(Icons.arrow_downward),
+                                        elevation: 16,
+                                        onChanged: (Viagem valueViagem) {
+                                          setState(() {
+                                            viagem = valueViagem;
+                                          });
+                                        },
+                                        items: database.viagens
+                                            .map<DropdownMenuItem<Viagem>>(
+                                                (Viagem valueViagem) {
+                                          return DropdownMenuItem<Viagem>(
+                                              value: valueViagem != null
+                                                  ? valueViagem
+                                                  : null,
+                                              child: Text(
+                                                  dateFormat
+                                                      .format(DateTime.parse(
+                                                          valueViagem.saida))
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 22)));
+                                        }).toList())))
+                          ])),
                       // Categoria (Text)
                       Padding(
                         padding: EdgeInsets.only(top: 20),
@@ -145,9 +140,9 @@ class AddRegistro extends StatelessWidget {
                       ),
                       // Categoria (Selector list)
                       PrincipalElement(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
                             Icon(
                               Icons.calendar_today,
                               color: Colors.white,
@@ -156,38 +151,33 @@ class AddRegistro extends StatelessWidget {
                             Padding(
                                 padding: EdgeInsets.only(left: 10.0),
                                 child: Theme(
-                                  data: Theme.of(context)
-                                      .copyWith(canvasColor: Colors.lightGreen),
-                                  child: DropdownButton<Categoria>(
-                                    underline: SizedBox(),
-                                    iconSize: 0,
-                                    value: categoria,
-                                    icon: Icon(Icons.arrow_downward),
-                                    elevation: 16,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        categoria = value;
-                                      });
-                                    },
-                                    items: database.categorias
-                                        .map<DropdownMenuItem<Categoria>>(
-                                            (Categoria value) {
-                                      return DropdownMenuItem<Categoria>(
-                                        value: value,
-                                        child: Text(
-                                          value.titulo,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 22),
-                                        ),
-                                      );
-                                    }).toList(),
-                                  ),
-                                ))
-                          ],
-                        ),
-                      ),
+                                    data: Theme.of(context).copyWith(
+                                        canvasColor: Colors.lightGreen),
+                                    child: DropdownButton<Categoria>(
+                                        underline: SizedBox(),
+                                        iconSize: 0,
+                                        value: categoria,
+                                        icon: Icon(Icons.arrow_downward),
+                                        elevation: 16,
+                                        onChanged: (Categoria valueCategoria) {
+                                          setState(() {
+                                            categoria = valueCategoria;
+                                          });
+                                        },
+                                        items: database.categorias
+                                            .map<DropdownMenuItem<Categoria>>(
+                                                (Categoria valueCategoria) {
+                                          return DropdownMenuItem<Categoria>(
+                                              value: valueCategoria,
+                                              child: Text(
+                                                valueCategoria.titulo,
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 22),
+                                              ));
+                                        }).toList())))
+                          ])),
                       // Data (Text)
                       Padding(
                         padding: EdgeInsets.only(top: 20.0),

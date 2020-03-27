@@ -53,7 +53,6 @@ class ItemHome extends StatelessWidget {
           ),
         ),
       ),
-
       child: Container(
           height: 70.0,
           margin: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),

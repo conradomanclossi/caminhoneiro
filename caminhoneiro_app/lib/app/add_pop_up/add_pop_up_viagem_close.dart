@@ -28,7 +28,7 @@ class AddViagem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final database = Provider.of<DataBase>(context);
-    Viagem dropdownValue = database.viagens.last;
+    Viagem viagemClose = database.viagens.first;
 
     return StatefulBuilder(builder: (context, setState) {
       return Container(
@@ -82,19 +82,18 @@ class AddViagem extends StatelessWidget {
                                 child: DropdownButton<Viagem>(
                                   underline: SizedBox(),
                                   iconSize: 0,
-                                  value: dropdownValue,
+                                  value: viagemClose,
                                   icon: Icon(Icons.arrow_downward),
                                   elevation: 16,
-                                  onChanged: (newValue) {
+                                  onChanged: (value) {
                                     setState(() {
-                                      dropdownValue = newValue;
+                                      viagemClose = value;
                                     });
                                   },
                                   items: database.viagens
-                                      .map<DropdownMenuItem<Viagem>>(
-                                          (Viagem value) {
+                                      .map<DropdownMenuItem<Viagem>>((value) {
                                     return DropdownMenuItem<Viagem>(
-                                      value: value,
+                                      value: value != null ? value : null,
                                       child: Text(
                                         dateFormat
                                             .format(DateTime.parse(value.saida))
@@ -170,10 +169,10 @@ class AddViagem extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50)),
                         onPressed: () async {
-                          dropdownValue.chegada = _dateTime != null
+                          viagemClose.chegada = _dateTime != null
                               ? _dateTime.toString()
                               : date.toString();
-                          database.updateViagem(dropdownValue);
+                          database.updateViagem(viagemClose);
                           Navigator.pop(context);
                         },
                         child: const Text('Salvar',
