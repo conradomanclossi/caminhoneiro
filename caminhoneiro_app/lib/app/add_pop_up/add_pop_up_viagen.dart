@@ -42,6 +42,7 @@ class AddViagem extends StatelessWidget {
               child: Center(
                 child: Column(
                   children: <Widget>[
+                    
                     // Iniciar uma viagem (Text)
                     Padding(
                       padding: EdgeInsets.only(top: 20.0),
@@ -53,6 +54,7 @@ class AddViagem extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                       ),
                     ),
+
                     // Data de saída (Text)
                     Padding(
                       padding: EdgeInsets.only(top: 20.0),
@@ -64,6 +66,7 @@ class AddViagem extends StatelessWidget {
                         ),
                       ),
                     ),
+
                     // Data de saída (Date picker)
                     PrincipalElement(
                       onTap: () {
@@ -103,26 +106,52 @@ class AddViagem extends StatelessWidget {
                         ],
                       ),
                     ),
-                    // Salvar (Botão)
+
+                    // Botões
                     Padding(
-                      padding: EdgeInsets.only(
-                          top: 20.0, bottom: 20.0, left: 20.0, right: 20.0),
-                      child: RaisedButton(
-                        splashColor: Colors.green,
-                        color: Colors.lightGreen,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50)),
-                        onPressed: () async {
-                          Viagem v = Viagem();
-                          v.saida = _dateTime != null
-                              ? _dateTime.toString()
-                              : date.toString();
-                          database.saveViagem(v);
-                          Navigator.pop(context);
-                        },
-                        child: const Text('Salvar',
-                            style:
-                                TextStyle(fontSize: 20, color: Colors.white)),
+                      padding: EdgeInsets.all(20.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          // Salvar (Botão)
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10.0),
+                            child: RaisedButton(
+                              splashColor: Colors.green,
+                              color: Colors.lightGreen,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50)),
+                              onPressed: () async {
+                                Viagem v = Viagem();
+                                v.saida = _dateTime != null
+                                    ? _dateTime.toString()
+                                    : date.toString();
+                                database.saveViagem(v);
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Salvar',
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.white)),
+                            ),
+                          ),
+
+                          // Sair (Botão)
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: RaisedButton(
+                              splashColor: Colors.redAccent,
+                              color: Colors.red,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50)),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Sair',
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.white)),
+                            ),
+                          ),
+                        ],
                       ),
                     )
                   ],

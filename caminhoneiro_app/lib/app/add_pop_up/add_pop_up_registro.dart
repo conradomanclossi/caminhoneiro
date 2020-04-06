@@ -1,4 +1,5 @@
 // Packages
+import 'package:caminhoneiro_app/sqlite/controller/registro_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +34,7 @@ class _AddRegistroState extends State<AddRegistro> {
   @override
   Widget build(BuildContext context) {
     final database = Provider.of<DataBase>(context);
+    final registroController = Provider.of<RegistroController>(context);
     Registro _editedRegistro;
     Viagem viagem;
     Categoria categoria;
@@ -50,12 +52,12 @@ class _AddRegistroState extends State<AddRegistro> {
       _valorController.text = widget.registro.valor.toString();
       date = DateTime.parse(widget.registro.date);
     } else {
-      _editedRegistro = Registro();
-      viagem = database.viagens.last;
-      categoria = database.categorias.last;
+      registroController.registro = Registro();
+      viagem = database.viagens[0];
+      categoria = database.categorias[0];
       date = DateTime.now();
     }
-    
+
     return StatefulBuilder(builder: (context, setState) {
       return Container(
         margin: EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
@@ -68,6 +70,7 @@ class _AddRegistroState extends State<AddRegistro> {
                 child: Center(
                   child: Column(
                     children: <Widget>[
+
                       // Adicionar registro (Title)
                       Padding(
                           padding: EdgeInsets.only(top: 20.0),
@@ -76,12 +79,14 @@ class _AddRegistroState extends State<AddRegistro> {
                                   color: Colors.black45,
                                   fontSize: 25.0,
                                   fontWeight: FontWeight.bold))),
+
                       // Viagem (Text)
                       Padding(
                           padding: EdgeInsets.only(top: 20),
                           child: Text("Viagem",
                               style: TextStyle(
                                   color: Colors.black45, fontSize: 20.0))),
+
                       // Viagem (Selector list)
                       PrincipalElement(
                           child: Row(
@@ -127,6 +132,7 @@ class _AddRegistroState extends State<AddRegistro> {
                                                       fontSize: 22)));
                                         }).toList())))
                           ])),
+
                       // Categoria (Text)
                       Padding(
                         padding: EdgeInsets.only(top: 20),
@@ -138,6 +144,7 @@ class _AddRegistroState extends State<AddRegistro> {
                           ),
                         ),
                       ),
+
                       // Categoria (Selector list)
                       PrincipalElement(
                           child: Row(
@@ -178,6 +185,7 @@ class _AddRegistroState extends State<AddRegistro> {
                                               ));
                                         }).toList())))
                           ])),
+
                       // Data (Text)
                       Padding(
                         padding: EdgeInsets.only(top: 20.0),
@@ -189,6 +197,7 @@ class _AddRegistroState extends State<AddRegistro> {
                           ),
                         ),
                       ),
+
                       // Selector de chegada (Date picker)
                       PrincipalElement(
                         onTap: () {
@@ -229,6 +238,7 @@ class _AddRegistroState extends State<AddRegistro> {
                           ],
                         ),
                       ),
+
                       // Título (Text)
                       Padding(
                         padding: EdgeInsets.only(top: 20),
@@ -240,6 +250,7 @@ class _AddRegistroState extends State<AddRegistro> {
                           ),
                         ),
                       ),
+
                       // Título (Text Field)
                       Padding(
                         padding: const EdgeInsets.only(
@@ -254,6 +265,7 @@ class _AddRegistroState extends State<AddRegistro> {
                           },
                         ),
                       ),
+
                       // Valor (Text)
                       Padding(
                         padding: EdgeInsets.only(top: 20),
@@ -265,6 +277,7 @@ class _AddRegistroState extends State<AddRegistro> {
                           ),
                         ),
                       ),
+
                       // Valor (Text Field)
                       Padding(
                         padding: const EdgeInsets.only(
@@ -280,30 +293,57 @@ class _AddRegistroState extends State<AddRegistro> {
                           },
                         ),
                       ),
-                      // Salvar (Botão)
+                      
+                      // Botões
                       Padding(
-                        padding: EdgeInsets.only(
-                            top: 20.0, bottom: 20.0, left: 20.0, right: 20.0),
-                        child: RaisedButton(
-                          splashColor: Colors.green,
-                          color: Colors.lightGreen,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          onPressed: () async {
-                            _editedRegistro.viagemId = viagem.id;
-                            _editedRegistro.categoriaId = categoria.id;
-                            _editedRegistro.date = _dateTime != null
-                                ? _dateTime.toString()
-                                : date.toString();
-                            _editedRegistro.id != null
-                                ? database.updateRegistro(_editedRegistro)
-                                : database.saveRegistro(_editedRegistro);
-                            Navigator.pop(context);
-                          },
-                          child: const Text('Salvar',
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white)),
+                        padding: const EdgeInsets.all(20.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+
+                            // Salvar (Botão)
+                            Padding(
+                              padding: EdgeInsets.only(right: 10.0),
+                              child: RaisedButton(
+                                splashColor: Colors.green,
+                                color: Colors.lightGreen,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                onPressed: () async {
+                                  _editedRegistro.viagemId = viagem.id;
+                                  _editedRegistro.categoriaId = categoria.id;
+                                  _editedRegistro.date = _dateTime != null
+                                      ? _dateTime.toString()
+                                      : date.toString();
+                                  _editedRegistro.id != null
+                                      ? database.updateRegistro(_editedRegistro)
+                                      : database.saveRegistro(_editedRegistro);
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('Salvar',
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white)),
+                              ),
+                            ),
+
+                            // Sair (Botão)
+                            Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child: RaisedButton(
+                                splashColor: Colors.redAccent,
+                                color: Colors.red,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50)),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('Sair',
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white)),
+                              ),
+                            ),
+                          ],
                         ),
                       )
                     ],

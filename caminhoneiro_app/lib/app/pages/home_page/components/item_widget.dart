@@ -2,11 +2,11 @@ import 'package:caminhoneiro_app/sqlite/suport_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-class ItemViagem extends StatelessWidget {
+class ItemViagemDois extends StatelessWidget {
   final Categoria item;
   final Function removeClicked;
 
-  const ItemViagem({Key key, this.item, this.removeClicked}) : super(key: key);
+  const ItemViagemDois({Key key, this.item, this.removeClicked}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

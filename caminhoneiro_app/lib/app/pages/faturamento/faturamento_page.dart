@@ -14,10 +14,10 @@ class _FaturamentoPageState extends State<FaturamentoPage> {
   @override
   Widget build(BuildContext context) {
     final database = Provider.of<DataBase>(context);
+    database.loadDataBase();
     return Padding(
       padding: const EdgeInsets.only(top: 80.0),
       child: Observer(builder: (_) {
-        database.loadDataBase();
         return ListView.builder(
           itemCount: database.viagens.length,
           itemBuilder: (_, index) {

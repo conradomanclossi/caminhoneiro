@@ -63,6 +63,7 @@ class AddCategoria extends StatelessWidget {
                           ),
                         ),
                       ),
+
                       // Tipo (Selector)
                       PrincipalElement(
                         child: Center(
@@ -100,7 +101,7 @@ class AddCategoria extends StatelessWidget {
                           ),
                         ),
                       ),
-
+            
                       /// Título (Text Field)
                       Padding(
                         padding: const EdgeInsets.only(
